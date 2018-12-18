@@ -1,30 +1,21 @@
 <template>
-  <div id="app">
-      <a-layout>
+    <v-app>
+        <v-toolbar app>
+            <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
+                <span>VDI Sizing Wizard</span>
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn icon href="https://github.com/tduval/VDI-Sizing-Wizard" target="_blank">
+                <v-icon>fab fa-github</v-icon>
+            </v-btn>
+        </v-toolbar>
 
-        <a-layout-header>
-          <div class="logo" />
-          <a-menu
-            theme="dark"
-            mode="horizontal"
-            :defaultSelectedKeys="['1']"
-            :style="{ lineHeight: '64px' }"
-          >
-            <a-menu-item key="1"><router-link to="/">Home</router-link></a-menu-item>
-            <a-menu-item key="2"><router-link to="/">New Project</router-link></a-menu-item>
-          </a-menu>
-        </a-layout-header>
-
-        <a-layout-content style="padding: 50px 50px">
-          <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }"><router-view/></div>
-        </a-layout-content>
-
-        <a-layout-footer style="text-align: center">
-            Project released on <a href="https://github.com/tduval/VDI-Sizing-Wizard" target="_blank" rel="noopener">Github</a>
-        </a-layout-footer>
-
-      </a-layout>
-  </div>
+        <v-content>
+            <v-container>
+                <router-view></router-view>
+            </v-container>
+        </v-content>
+    </v-app>
 </template>
 
 <style>
