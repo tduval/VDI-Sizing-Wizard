@@ -1,37 +1,68 @@
 <template>
     <div>
-        <a-steps :current="current">
-            <a-step v-for="item in steps" :key="item.title" :title="item.title" />
-        </a-steps>
-        <div class="steps-content">{{steps[current].content}}
-            <keep-alive>
-                <component v-bind:is="steps[current].component">
-                </component>
-            </keep-alive>
-        </div>
+        <v-stepper v-model="currentStep">
+            <v-stepper-header>
+                <v-stepper-step :complete="currentStep > 1" step="1">
+                    Vendor
+                </v-stepper-step>
+                <v-divider></v-divider>
 
-        <div class="steps-action">
-            <a-button
-                v-if="current < steps.length - 1"
-                type="primary" @click="next"
-            >
-                Next
-            </a-button>
-            <a-button
-                v-if="current == steps.length - 1"
-                type="primary"
-                @click="$message.success('Processing complete!')"
-            >
-                Done
-            </a-button>
-            <a-button
-                v-if="current>0"
-                style="margin-left: 8px"
-                @click="prev"
-            >
-                Previous
-            </a-button>
-        </div>
+                <v-stepper-step :complete="currentStep > 2" step="2">
+                    Type
+                </v-stepper-step>
+                <v-divider></v-divider>
+
+                <v-stepper-step step="3">
+                    Archetype
+                </v-stepper-step>
+            </v-stepper-header>
+
+            <v-stepper-items>
+                <v-stepper-content step="1">
+                    <v-card class="mb-5" color="grey lighten-1" height="auto">
+                        <StepVendor></StepVendor>
+                    </v-card>
+
+                    <v-btn v-if="VENDOR_SELECTED" color="primary" @click="currentStep = 2">
+                        Continue
+                        <v-icon right>fas fa-angle-right</v-icon>
+                    </v-btn>
+                    <v-btn v-else disabled color="primary" @click="currentStep = 2">
+                        Continue
+                        <v-icon right>fas fa-angle-right</v-icon>
+                    </v-btn>
+                </v-stepper-content>
+
+                <v-stepper-content step="2">
+                    <v-card class="mb-5" color="grey lighten-1" height="200px">
+                    </v-card>
+
+                    <v-btn color="primary" @click="currentStep = 3">
+                        Continue
+                        <v-icon right>fas fa-angle-right</v-icon>
+                    </v-btn>
+
+                    <v-btn flat @click="currentStep--">
+                        <v-icon left>fas fa-angle-left</v-icon>
+                        Previous
+                    </v-btn>
+                </v-stepper-content>
+
+                <v-stepper-content step="3">
+                    <v-card class="mb-5" color="grey lighten-1" height="200px">
+                    </v-card>
+
+                    <v-btn color="success" @click="currentStep = 1">
+                        Finish
+                    </v-btn>
+
+                    <v-btn flat @click="currentStep--">
+                        <v-icon left>fas fa-angle-left</v-icon>
+                        Previous
+                    </v-btn>
+                </v-stepper-content>
+            </v-stepper-items>
+        </v-stepper>
     </div>
 </template>
 
@@ -49,7 +80,7 @@ export default {
   },
   data () {
     return {
-      current: 0,
+      currentStep: 0,
       steps: [{
         title: 'Vendor',
         content: 'Select your VDI-based solution',
@@ -65,29 +96,15 @@ export default {
       }]
     }
   },
-  methods: {
-    next () {
-      this.current++
-    },
-    prev () {
-      this.current--
+  computed: {
+    VENDOR_SELECTED () {
+      return this.$store.state.vendorSelected
     }
+  },
+  methods: {
   }
 }
 </script>
 
 <style scoped>
-  .steps-content {
-    margin-top: 16px;
-    border: 1px dashed #e9e9e9;
-    border-radius: 6px;
-    background-color: #fafafa;
-    min-height: 200px;
-    text-align: center;
-    padding-top: 80px;
-  }
-
-  .steps-action {
-    margin-top: 24px;
-  }
 </style>
