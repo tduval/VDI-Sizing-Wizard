@@ -170,6 +170,9 @@ export default new Vuex.Store({
       state._selectedSolutionVendor = payload
     },
     SET_SOLUTION_TYPE (state, payload) {
+      if (payload === 'sbc') {
+        state._selectedArchetypeOS = 'ws16'
+      }
       // eslint-disable-next-line
       state._selectedSolutionType = payload
     },
