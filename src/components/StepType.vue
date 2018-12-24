@@ -10,8 +10,8 @@
                 <v-flex xs12 sm4>
                     <v-card>
                         <v-card-text class="text-xs-center">
-                            <v-radio-group v-model="type">
-                                <v-radio v-for="item in GET_SOLUTION_TYPE_COLLECTION" :key="item.id" :value="item.tag" v-on:click.native="setSolutionType(item.tag)">
+                            <v-radio-group v-model="SOLUTION_TYPE">
+                                <v-radio v-for="item in GET_SOLUTION_TYPE_COLLECTION" :key="item.id" :value="item.tag">
                                     <div slot="label"> <strong>{{ item.title }}</strong> {{ item.description }}</div>
                                 </v-radio>
                             </v-radio-group>
@@ -30,18 +30,22 @@ export default {
   },
   data () {
     return {
-      type: 'vdi'
     }
   },
   computed: {
     GET_SOLUTION_TYPE_COLLECTION () {
       return this.$store.state.solutionTypeCollection
+    },
+    SOLUTION_TYPE: {
+      get () {
+        return this.$store.state._selectedSolutionType
+      },
+      set (value) {
+        this.$store.commit('SET_SOLUTION_TYPE', value)
+      }
     }
   },
   methods: {
-    setSolutionType: function (type) {
-      this.$store.commit('SET_SOLUTION_TYPE', type)
-    }
   }
 }
 </script>

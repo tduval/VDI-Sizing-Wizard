@@ -10,8 +10,8 @@
                 <v-flex xs12 sm4>
                     <v-card>
                         <v-card-text class="text-xs-center">
-                            <v-radio-group v-model="vendor">
-                                <v-radio v-for="item in GET_SOLUTION_VENDOR_COLLECTION" :key="item.id" :value="item.tag" v-on:click.native="setSolutionVendor(item.tag)">
+                            <v-radio-group v-model="SOLUTION_VENDOR">
+                                <v-radio v-for="item in GET_SOLUTION_VENDOR_COLLECTION" :key="item.id" :value="item.tag">
                                     <div slot="label"> {{ item.title }} </div>
                                 </v-radio>
                             </v-radio-group>
@@ -30,18 +30,22 @@ export default {
   },
   data () {
     return {
-      vendor: 'citrix'
     }
   },
   computed: {
     GET_SOLUTION_VENDOR_COLLECTION () {
       return this.$store.state.solutionVendorCollection
+    },
+    SOLUTION_VENDOR: {
+      get () {
+        return this.$store.state._selectedSolutionVendor
+      },
+      set (value) {
+        this.$store.commit('SET_SOLUTION_VENDOR', value)
+      }
     }
   },
   methods: {
-    setSolutionVendor: function (vendor) {
-      this.$store.commit('SET_SOLUTION_VENDOR', vendor)
-    }
   }
 }
 </script>

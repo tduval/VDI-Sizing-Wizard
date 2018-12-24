@@ -16,12 +16,12 @@
                         </v-card-title>
                         <v-card-text>
                             <div class="text-xs-left pb-3">
-                                <span> {{ GET_CONCURRENT_USERS }} Concurrent Users</span><br>
-                                <span> Machine <strong>{{ GET_ARCHETYPE_ASSIGNMENT }}</strong> to users</span><br>
-                                <span> <strong><v-icon small>fas fa-desktop</v-icon> {{ GET_ARCHETYPE_OS }}</strong></span><br>
+                                <span> {{ CONCURRENT_USERS }} Concurrent Users</span><br>
+                                <span> Machine <strong>{{ ARCHETYPE_ASSIGNMENT }}</strong> to users</span><br>
+                                <span> <strong><v-icon small>fas fa-desktop</v-icon> {{ ARCHETYPE_OS }}</strong></span><br>
                             </div>
                                 <v-layout row wrap class="grey darken-2">
-                                    <v-flex><span> <strong>{{ GET_ARCHETYPE_WORKLOAD }}</strong> Workload</span></v-flex>
+                                    <v-flex><span> <strong>{{ ARCHETYPE_WORKLOAD }}</strong> Workload</span></v-flex>
                                     <v-flex>
                                         <v-icon small>fas fa-microchip</v-icon>
                                         {{ GET_SELECTED_ARCHETYPE_CPU }} Core
@@ -45,7 +45,7 @@
 
                                 <v-layout row wrap justify-space-around>
                                     <v-flex xs3>
-                                        <v-text-field prepend-icon="fas fa-users" mask="#####" type="number" v-model="concurrentUsers" v-on:change="setCCU">
+                                        <v-text-field prepend-icon="fas fa-users" mask="#####" type="number" v-model="CONCURRENT_USERS">
                                             <template slot="label">
                                                 How many <strong>concurrent</strong> users ?
                                             </template>
@@ -55,8 +55,7 @@
                                     <v-flex xs6>
                                         <v-slider
                                             label="What type of user's workload ?"
-                                            v-model="workload"
-                                            v-on:change="setWorkload"
+                                            v-model="ARCHETYPE_WORKLOAD"
                                             :tick-labels="workloadLabel"
                                             always-dirty
                                             max="2"
@@ -67,7 +66,7 @@
                                             tick-size="5">
                                             <template slot="thumb-label" slot-scope="props">
                                                 <span>
-                                                    {{ getWorkload(props.value) }}
+                                                    {{ workloadLabel[props.value] }}
                                                 </span>
                                             </template>
                                         </v-slider>
@@ -76,7 +75,7 @@
                                 <v-divider></v-divider>
                                 <v-layout row wrap justify-space-around>
                                     <v-flex xs3>
-                                        <v-radio-group v-model="resAllocation" v-on:change="setResAllocation">
+                                        <v-radio-group v-model="ARCHETYPE_RESALLOCATION">
                                             <div slot="label">Define the virtual resources allocation</div>
                                             <v-radio value="experience">
                                                 <div slot="label">Higher <strong>User Experience</strong></div>
@@ -87,7 +86,7 @@
                                         </v-radio-group>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <v-radio-group v-model="desktopOS" v-on:change="setOS">
+                                        <v-radio-group v-model="ARCHETYPE_OS">
                                             <div slot="label">Define the VDI Operating Systems</div>
                                             <v-radio value="windows10">
                                                 <div slot="label">Windows <strong>10</strong></div>
@@ -98,7 +97,7 @@
                                         </v-radio-group>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <v-radio-group v-model="vdiType" v-on:change="setAssignment">
+                                        <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
                                             <div slot="label">Define the VDI type</div>
                                             <v-radio value="pooled">
                                                 <div slot="label">Pooled <strong>Non-Persistent</strong> desktop</div>
@@ -126,30 +125,10 @@ export default {
   },
   data () {
     return {
-      workloadLabel: ['Light', 'Medium', 'Heavy'],
-      workload: 0,
-      resAllocation: 'experience',
-      desktopOS: 'windows10',
-      vdiType: 'pooled',
-      concurrentUsers: 100
+      workloadLabel: ['Light', 'Medium', 'Heavy']
     }
   },
   computed: {
-    GET_CONCURRENT_USERS () {
-      return this.$store.state._selectedConcurrentUsers
-    },
-    GET_ARCHETYPE_OS () {
-      return this.$store.state._selectedArchetypeOS
-    },
-    GET_ARCHETYPE_WORKLOAD () {
-      return this.$store.state._selectedArchetypeWorkload
-    },
-    GET_ARCHETYPE_RESALLOCATION () {
-      return this.$store.state._selectedArchetypeResourceAllocation
-    },
-    GET_ARCHETYPE_ASSIGNMENT () {
-      return this.$store.state._selectedArchetypeAssignment
-    },
     GET_SELECTED_ARCHETYPE_CPU () {
       return this.$store.getters.getSelectedArchetypeCPU()
     },
@@ -158,27 +137,51 @@ export default {
     },
     GET_SELECTED_ARCHETYPE_DISK () {
       return this.$store.getters.getSelectedArchetypeDisk()
+    },
+    ARCHETYPE_OS: {
+      get () {
+        return this.$store.state._selectedArchetypeOS
+      },
+      set (value) {
+        this.$store.commit('SET_ARCHETYPE_OS', value)
+      }
+    },
+    ARCHETYPE_WORKLOAD: {
+      get () {
+        return this.$store.state._selectedArchetypeWorkload
+      },
+      set (value) {
+        if (!Number.isNaN(value)) {
+          this.$store.commit('SET_ARCHETYPE_WORKLOAD', this.workloadLabel[value])
+        }
+      }
+    },
+    ARCHETYPE_RESALLOCATION: {
+      get () {
+        return this.$store.state._selectedArchetypeResourceAllocation
+      },
+      set (value) {
+        this.$store.commit('SET_ARCHETYPE_RESALLOCATION', value)
+      }
+    },
+    ARCHETYPE_ASSIGNMENT: {
+      get () {
+        return this.$store.state._selectedArchetypeAssignment
+      },
+      set (value) {
+        this.$store.commit('SET_ARCHETYPE_ASSIGNMENT', value)
+      }
+    },
+    CONCURRENT_USERS: {
+      get () {
+        return this.$store.state._selectedConcurrentUsers
+      },
+      set (value) {
+        this.$store.commit('SET_CONCURRENT_USERS', value)
+      }
     }
   },
   methods: {
-    getWorkload (val) {
-      return this.workloadLabel[val]
-    },
-    setWorkload () {
-      this.$store.commit('SET_ARCHETYPE_WORKLOAD', this.getWorkload(this.workload))
-    },
-    setResAllocation () {
-      this.$store.commit('SET_ARCHETYPE_RESALLOCATION', this.resAllocation)
-    },
-    setOS () {
-      this.$store.commit('SET_ARCHETYPE_OS', this.desktopOS)
-    },
-    setAssignment () {
-      this.$store.commit('SET_ARCHETYPE_ASSIGNMENT', this.vdiType)
-    },
-    setCCU () {
-      this.$store.commit('SET_CONCURRENT_USERS', this.concurrentUsers)
-    }
   }
 }
 </script>
