@@ -31,32 +31,38 @@ export default new Vuex.Store({
     archetypeOSCollection: [{
       name: 'Windows 10',
       type: 'Desktop',
-      Family: 'Windows',
+      family: 'Windows',
+      icon: 'fab fa-windows',
       tag: 'wd10'
     }, {
       name: 'Windows 7',
       type: 'Desktop',
-      Family: 'Windows',
+      family: 'Windows',
+      icon: 'fab fa-windows',
       tag: 'wd7'
     }, {
       name: 'Windows Server 2016',
       type: 'Server',
-      Family: 'Windows',
+      family: 'Windows',
+      icon: 'fab fa-windows',
       tag: 'ws16'
     }, {
       name: 'Windows Server 2012R2',
       type: 'Server',
-      Family: 'Windows',
+      family: 'Windows',
+      icon: 'fab fa-windows',
       tag: 'ws12'
     }, {
       name: 'Linux Desktop',
       type: 'Desktop',
-      Family: 'Linux',
+      family: 'Linux',
+      icon: 'fab fa-linux',
       tag: 'ld'
     }, {
       name: 'Linux Server',
       type: 'Server',
-      Family: 'Linux',
+      family: 'Linux',
+      icon: 'fab fa-linux',
       tag: 'ls'
     }],
 
@@ -125,13 +131,16 @@ export default new Vuex.Store({
     _selectedSolutionType: 'vdi',
     _selectedArchetypeWorkload: 'Light',
     _selectedArchetypeResourceAllocation: 'experience',
-    _selectedArchetypeOS: 'windows10',
+    _selectedArchetypeOS: 'wd10',
     _selectedArchetypeAssignment: 'pooled',
     _selectedConcurrentUsers: 100
   },
   getters: {
     getSelectedArchetypeWorkloadDefinition: (state) => (name) => {
       return state.ArchetypeWorkloadDefinition.find(def => def.name === name)
+    },
+    getSelectedArchetypeOSCollection: (state) => () => {
+      return state.archetypeOSCollection.find(def => def.tag === state._selectedArchetypeOS)
     },
     getSelectedArchetypeCPU: (state) => () => {
       return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).cpu

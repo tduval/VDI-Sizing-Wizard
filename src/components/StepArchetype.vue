@@ -86,15 +86,17 @@
                                         </v-radio-group>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <v-radio-group v-model="ARCHETYPE_OS">
-                                            <div slot="label">Define the VDI Operating Systems</div>
-                                            <v-radio value="windows10">
-                                                <div slot="label">Windows <strong>10</strong></div>
-                                            </v-radio>
-                                            <v-radio value="windows7">
-                                                <div slot="label">Windows <strong>7</strong></div>
-                                            </v-radio>
-                                        </v-radio-group>
+                                        <div class="theme--light v-label text-xs-left mt-3 pt-1">Select your target Operating System</div>
+                                        <v-select
+                                          v-model="ARCHETYPE_OS"
+                                          :hint="GET_SELECTED_ARCHETYPE_OS_DEFINITION.family+' '+GET_SELECTED_ARCHETYPE_OS_DEFINITION.type+' family'"
+                                          :prepend-icon="GET_SELECTED_ARCHETYPE_OS_DEFINITION.icon"
+                                          persistent-hint
+                                          :items="GET_ARCHETYPE_OS_COLLECTION"
+                                          item-text="name"
+                                          item-value="tag"
+                                        >
+                                        </v-select>
                                     </v-flex>
                                     <v-flex xs3>
                                         <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
@@ -137,6 +139,12 @@ export default {
     },
     GET_SELECTED_ARCHETYPE_DISK () {
       return this.$store.getters.getSelectedArchetypeDisk()
+    },
+    GET_ARCHETYPE_OS_COLLECTION () {
+      return this.$store.state.archetypeOSCollection
+    },
+    GET_SELECTED_ARCHETYPE_OS_DEFINITION () {
+      return this.$store.getters.getSelectedArchetypeOSCollection()
     },
     ARCHETYPE_OS: {
       get () {
