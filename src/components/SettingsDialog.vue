@@ -24,7 +24,7 @@
                                                     { text: 'vCPU', value: 'cpu' },
                                                     { text: 'Memory (GB)', value: 'memory' },
                                                     { text: 'Write Disk (GB)', value: 'disk' }]"
-                                        :items="GET_ARCHETYPEWORKLOADDEFINITION"
+                                        :items="GET_ARCHETYPE_WORKLOAD_DEFINITION"
                                         class="elevation-1 px-5">
                                         <template slot="items" slot-scope="props">
                                             <td><strong>{{ props.item.name }}</strong></td>
@@ -34,9 +34,24 @@
                                         </template>
                                     </v-data-table>
                                 </v-expansion-panel-content>
+
+                                <v-expansion-panel-content>
+                                    <div slot="header">Overcommit vCPU per pCPU Ratio Definition</div>
+                                    <v-data-table :headers="[{text: 'Resources Allocation Type', value: 'name'},
+                                                    { text: 'value', value: 'value' }]"
+                                        :items="GET_OVERCOMMIT_CPU_DEFINITION"
+                                        class="elevation-1 px-5">
+                                        <template slot="items" slot-scope="props">
+                                            <td><strong>{{ props.item.name }}</strong></td>
+                                            <td><code>{{ props.item.value }}</code></td>
+                                        </template>
+                                    </v-data-table>
+                                </v-expansion-panel-content>
+
                                 <v-expansion-panel-content>
                                     <div slot="header">Citrix XenDesktop Core Infrastructure Definition</div>
                                 </v-expansion-panel-content>
+
                                 <v-expansion-panel-content>
                                     <div slot="header">VMware Horizon Core Infrastructure Definition</div>
                                 </v-expansion-panel-content>
@@ -57,18 +72,17 @@ export default {
   },
   data () {
     return {
-      // dialog: false,
-      notifications: false,
-      sound: true,
-      widgets: false
     }
   },
   computed: {
     GET_DIALOG_SETTINGS () {
       return this.$store.state.dialogSettings
     },
-    GET_ARCHETYPEWORKLOADDEFINITION () {
+    GET_ARCHETYPE_WORKLOAD_DEFINITION () {
       return this.$store.state.ArchetypeWorkloadDefinition
+    },
+    GET_OVERCOMMIT_CPU_DEFINITION () {
+      return this.$store.state.OvercommitRatioCPU
     }
   },
   methods: {
