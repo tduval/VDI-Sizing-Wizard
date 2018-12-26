@@ -12,35 +12,105 @@
                 <v-flex xs3>
                     <v-card dark>
                         <v-card-title primary-title>
-                            <div class="headline">VDI Specifications</div>
+                            <div class="display-2">{{ GET_SELECTED_SOLUTION_TYPE }} Specifications</div>
                         </v-card-title>
-                        <v-card-text>
+                        <v-card-text v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
                             <div class="text-xs-left pb-3">
-                                <span> {{ CONCURRENT_USERS }} Concurrent Users</span><br>
-                                <span> Machine <strong>{{ ARCHETYPE_ASSIGNMENT }}</strong> to users</span><br>
-                                <span> <strong><v-icon small>fas fa-desktop</v-icon> {{ ARCHETYPE_OS }}</strong></span><br>
+                                <span class="subheading"> <v-icon small>fas fa-users</v-icon> <strong> {{ CONCURRENT_USERS }}</strong> Concurrent users</span><br>
+                                <span class="subheading"> <v-icon small>fas fa-desktop</v-icon> Machine <strong> {{ ARCHETYPE_ASSIGNMENT }}</strong> to users</span><br>
+                                <span class="title"> <v-icon>{{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.icon }}</v-icon> <strong> {{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.name }}</strong></span><br>
                             </div>
                             <div class="grey darken-2">
                                 <v-layout row wrap justify-space-between>
                                     <v-flex class="text-xs-left pl-2"><span>Workload <strong>{{ ARCHETYPE_WORKLOAD }}</strong></span></v-flex>
                                     <v-flex>
-                                        <v-icon small>fas fa-microchip</v-icon>
-                                        {{ GET_SELECTED_ARCHETYPE_CPU }} Core
+                                        <v-tooltip top>
+                                            <div slot="activator">
+                                                <v-icon small>fas fa-microchip</v-icon>
+                                                {{ GET_SELECTED_ARCHETYPE_CPU }} Core
+                                            </div>
+                                            <span>vCPU per VDI</span>
+                                        </v-tooltip>
                                     </v-flex>
                                     <v-flex>
-                                        <v-icon small>fas fa-memory</v-icon>
-                                        {{ GET_SELECTED_ARCHETYPE_MEMORY }} GB
+                                        <v-tooltip top>
+                                            <div slot="activator">
+                                                <v-icon small>fas fa-memory</v-icon>
+                                                {{ GET_SELECTED_ARCHETYPE_MEMORY/1024 }} GB
+                                            </div>
+                                            <span>RAM per VDI</span>
+                                        </v-tooltip>
                                     </v-flex>
                                     <v-flex>
-                                        <v-icon small>fas fa-hdd</v-icon>
-                                        {{ GET_SELECTED_ARCHETYPE_DISK }} GB
+                                        <v-tooltip top>
+                                            <div slot="activator">
+                                                <v-icon small>fas fa-hdd</v-icon>
+                                                {{ GET_SELECTED_ARCHETYPE_DISK }} GB
+                                            </div>
+                                            <span>Write Disk per VDI</span>
+                                        </v-tooltip>
                                     </v-flex>
                                 </v-layout>
                                 <v-layout row wrap justify-space-between>
                                     <v-flex class="text-xs-left pl-2"><span>Average expected storage IOPS per user</span></v-flex>
-                                    <v-flex><v-icon small>fas fa-tachometer-alt</v-icon>
-                                        <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
+                                    <v-flex>
+                                        <v-tooltip top>
+                                            <div slot="activator">
+                                                <v-icon small>fas fa-tachometer-alt</v-icon>
+                                                <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
+                                            </div>
+                                            <span>Steady-State IOPS per VDI</span>
+                                        </v-tooltip>
                                     </v-flex>
+                                </v-layout>
+                            </div>
+                        </v-card-text>
+                        <v-card-text v-else>
+                            <div class="text-xs-left pb-3">
+                                <span class="subheading"> <v-icon small>fas fa-users</v-icon> <strong> {{ CONCURRENT_USERS }}</strong> Concurrent users</span><br>
+                                <span class="subheading"> <v-icon small>fas fa-cubes</v-icon>  Hosted <strong class="text-capitalize"> {{ ARCHETYPE_ASSIGNMENT }}</strong></span><br>
+                                <span class="title"> <v-icon>{{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.icon }}</v-icon> <strong> {{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.name }}</strong></span><br>
+                            </div>
+                            <div class="grey darken-2">
+                                <v-layout row wrap justify-space-between>
+                                    <v-flex class="text-xs-left pl-2"><span>Workload <strong>{{ ARCHETYPE_WORKLOAD }}</strong></span></v-flex>
+                                    <v-flex>
+                                        <v-tooltip top>
+                                            <div slot="activator">
+                                                <v-icon small>fas fa-microchip</v-icon>
+                                                {{ GET_SELECTED_ARCHETYPE_CPU }} Core
+                                            </div>
+                                            <span>vCPU per SBC</span>
+                                        </v-tooltip>
+                                    </v-flex>
+                                    <v-flex>
+                                        <v-tooltip top>
+                                            <div slot="activator">
+                                                <v-icon small>fas fa-memory</v-icon>
+                                                {{ (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC)/1024 }} GB
+                                            </div>
+                                            <span>RAM per SBC</span>
+                                        </v-tooltip>
+                                    </v-flex>
+                                    <v-flex>
+                                        <v-tooltip top>
+                                            <div slot="activator">
+                                                <v-icon small>fas fa-hdd</v-icon>
+                                                {{ GET_SELECTED_ARCHETYPE_DISK }} GB
+                                            </div>
+                                            <span>Write Disk per SBC</span>
+                                        </v-tooltip>
+                                    </v-flex>
+                                </v-layout>
+                                <v-layout row wrap justify-space-between>
+                                    <v-flex class="text-xs-left pl-2"><span>Average expected storage IOPS per user</span></v-flex>
+                                    <v-tooltip top>
+                                        <div slot="activator">
+                                            <v-icon small>fas fa-tachometer-alt</v-icon>
+                                            <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
+                                        </div>
+                                        <span>Steady-State IOPS per user</span>
+                                    </v-tooltip>
                                 </v-layout>
                             </div>
                         </v-card-text>
@@ -53,24 +123,44 @@
 
                                 <v-layout row wrap justify-space-around>
                                     <v-flex xs3>
-                                        <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
-                                            <div slot="label">Define the VDI type
-                                                <v-tooltip top>
-                                                    <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
-                                                    <span>Tooltip</span>
-                                                </v-tooltip>
-                                            </div>
-                                            <v-radio value="pooled">
-                                                <div slot="label">Pooled <strong>Non-Persistent</strong> desktop</div>
-                                            </v-radio>
-                                            <v-radio value="dedicated">
-                                                <div slot="label">Dedicated <strong>Persistent</strong> desktop</div>
-                                            </v-radio>
-                                        </v-radio-group>
+                                        <div v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
+                                            <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
+                                                <div slot="label">Define the VDI type
+                                                    <v-tooltip top max-width="800px">
+                                                        <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                        <span><strong>Pooled Desktop</strong> – The pooled desktop model provides each user with a random, temporary desktop operating system. This model is good for simplicity and standardization.<br>
+                                                        <strong>Personal Desktop</strong> – The personal desktop model provides each user with a statically assigned, customizable, persistent desktop operating system. This model is good for performance and personalization</span>
+                                                    </v-tooltip>
+                                                </div>
+                                                <v-radio value="pooled">
+                                                    <div slot="label">Pooled <strong>Non-Persistent</strong> desktop</div>
+                                                </v-radio>
+                                                <v-radio value="dedicated">
+                                                    <div slot="label">Dedicated <strong>Persistent</strong> desktop</div>
+                                                </v-radio>
+                                            </v-radio-group>
+                                        </div>
+                                        <div v-else>
+                                            <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
+                                                <div slot="label">Define the SBC type
+                                                    <v-tooltip top max-width="800px">
+                                                        <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                        <span><strong>Hosted Apps</strong> – The hosted apps model delivers only the application interface to the user. This approach provides a seamless way for organizations to deliver a centrally managed and hosted application into the user’s local PC. The Hosted Apps model is often utilized when organizations must simplify management of a few line-of-business applications.<br>
+                                                        <strong>Shared Desktop</strong> – With the shared desktop model, multiple user desktops are hosted from a single, server-based operating system. The shared desktop model provides a low-cost, high-density solution; however, applications must be compatible with a multi-user server based operating system. In addition, because multiple users share a single operating system instance, users are restricted from performing actions that negatively impact other users, for example installing applications, changing system settings and restarting the operating system.</span>
+                                                    </v-tooltip>
+                                                </div>
+                                                <v-radio value="session">
+                                                    <div slot="label">Shared <strong>Desktop</strong>-based session</div>
+                                                </v-radio>
+                                                <v-radio value="apps">
+                                                    <div slot="label">Published <strong>Hosted Apps</strong></div>
+                                                </v-radio>
+                                            </v-radio-group>
+                                        </div>
                                     </v-flex>
                                     <v-divider vertical></v-divider>
                                     <v-flex xs3>
-                                        <div v-if="ARCHETYPE_ASSIGNMENT == 'pooled' && this.$store.state._selectedSolutionVendor == 'CITRIX'">
+                                        <div v-if="ARCHETYPE_ASSIGNMENT != 'dedicated' && this.$store.state._selectedSolutionVendor == 'CITRIX'">
                                             <v-radio-group v-model="SOLUTION_RAM_CACHE">
                                                 <div slot="label">Define the Write-Cache Model
                                                     <v-tooltip top>
@@ -115,6 +205,7 @@
                                             </template>
                                         </v-text-field>
                                     </v-flex>
+
                                     <v-divider vertical></v-divider>
                                     <v-flex xs6>
                                         <v-slider
@@ -142,10 +233,34 @@
                                     </v-flex>
                                 </v-layout>
 
+                                <v-layout row wrap justify-space-around class="py-3" v-if="GET_SELECTED_SOLUTION_TYPE == 'SBC'">
+                                    <v-flex xs8>
+                                        <v-slider
+                                            v-model="CONCURRENT_USERS_PER_SBC"
+                                            ticks
+                                            step="5"
+                                            always-dirty
+                                            min="10"
+                                            thumb-color="error"
+                                            thumb-label="always">
+                                            <div slot="label">How many users per SBC server in average ?
+                                                <v-tooltip top>
+                                                    <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                    <span>Tooltip</span>
+                                                </v-tooltip>
+                                            </div>
+                                        </v-slider>
+                                    </v-flex>
+                                    <v-flex xs3>
+                                        <div class="theme--light v-label mt-3 pt-1">Required number of Virtual Server</div>
+                                        <div>
+                                            <div class="headline mt-1 pt-3"><span class="font-weight-black error--text">{{ CONCURRENT_USERS / CONCURRENT_USERS_PER_SBC }}</span> </div>
+                                        </div>
+                                    </v-flex>
+                                </v-layout>
+
                                 <v-divider></v-divider>
                                 <v-layout row wrap justify-space-around class="py-3">
-                                    <v-flex xs3>
-                                    </v-flex>
                                     <v-flex xs3>
                                         <div class="theme--light v-label text-xs-left mt-3 pt-1">Select your target Operating System
                                             <v-tooltip top>
@@ -158,13 +273,34 @@
                                           :hint="GET_SELECTED_ARCHETYPE_OS_DEFINITION.family+' '+GET_SELECTED_ARCHETYPE_OS_DEFINITION.type+' family'"
                                           :prepend-icon="GET_SELECTED_ARCHETYPE_OS_DEFINITION.icon"
                                           persistent-hint
-                                          :items="GET_ARCHETYPE_OS_COLLECTION.filter(def => def.family == 'Windows')"
+                                          :items="GET_SELECTED_SOLUTION_TYPE == 'VDI' ?
+                                            GET_ARCHETYPE_OS_COLLECTION.filter(def => def.family == 'Windows').filter(def => def.type == 'Desktop') : GET_ARCHETYPE_OS_COLLECTION.filter(def => def.family == 'Windows').filter(def => def.type == 'Server')"
                                           item-text="name"
                                           item-value="tag"
                                         >
                                         </v-select>
                                     </v-flex>
-                                    <v-flex xs3>
+                                    <v-flex xs2>
+                                        <div class="theme--light v-label mt-3 pt-1">Processor</div>
+                                        <div v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
+                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_CPU }}</span> vCPU</div>
+                                        </div>
+                                        <div v-else>
+                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_CPU }}</span> vCPU <br>(NUMA Node)</div>
+                                        </div>
+                                    </v-flex>
+                                    <v-flex xs2>
+                                        <div class="theme--light v-label mt-3 pt-1">Memory RAM</div>
+                                        <div v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
+                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY }}</span> MB</div>
+                                        </div>
+                                        <div v-else>
+                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC }}</span> MB <br>({{ GET_SELECTED_ARCHETYPE_MEMORY }}MB per user)</div>
+                                        </div>
+                                    </v-flex>
+                                    <v-flex xs2>
+                                        <div class="theme--light v-label mt-3 pt-1">Write-Cache Disk</div>
+                                        <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_DISK }}</span> GB</div>
                                     </v-flex>
                                 </v-layout>
 
@@ -188,6 +324,9 @@ export default {
     }
   },
   computed: {
+    GET_SELECTED_SOLUTION_TYPE () {
+      return this.$store.state._selectedSolutionType
+    },
     GET_SELECTED_ARCHETYPE_CPU () {
       return this.$store.getters.getSelectedArchetypeCPU()
     },
@@ -254,6 +393,14 @@ export default {
       },
       set (value) {
         this.$store.commit('SET_SOLUTION_RAM_CACHE', value)
+      }
+    },
+    CONCURRENT_USERS_PER_SBC: {
+      get () {
+        return this.$store.state._selectedCCUperSBC
+      },
+      set (value) {
+        this.$store.commit('SET_CONCURRENT_USERS_PER_SBC', value)
       }
     }
   },

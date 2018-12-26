@@ -68,42 +68,90 @@ export default new Vuex.Store({
 
     ArchetypeWorkloadDefinition: [{
       name: 'Light',
-      allocationType: [{
-        name: 'experience',
-        cpu: 2,
-        memory: 3,
-        disk: 10
+      type: [{
+        name: 'VDI',
+        allocationType: [{
+          name: 'experience',
+          cpu: 2,
+          memory: 3072,
+          disk: 10
+        }, {
+          name: 'density',
+          cpu: 2,
+          memory: 2048,
+          disk: 10
+        }]
       }, {
-        name: 'density',
-        cpu: 2,
-        memory: 2,
-        disk: 10
+        name: 'SBC',
+        allocationType: [{
+          name: 'experience',
+          cpu: 8,
+          memory: 320,
+          disk: 60
+        }, {
+          name: 'density',
+          cpu: 8,
+          memory: 256,
+          disk: 40
+        }]
       }]
     }, {
       name: 'Medium',
-      allocationType: [{
-        name: 'experience',
-        cpu: 3,
-        memory: 4,
-        disk: 15
+      type: [{
+        name: 'VDI',
+        allocationType: [{
+          name: 'experience',
+          cpu: 3,
+          memory: 4096,
+          disk: 15
+        }, {
+          name: 'density',
+          cpu: 2,
+          memory: 3072,
+          disk: 15
+        }]
       }, {
-        name: 'density',
-        cpu: 2,
-        memory: 3,
-        disk: 15
+        name: 'SBC',
+        allocationType: [{
+          name: 'experience',
+          cpu: 8,
+          memory: 640,
+          disk: 60
+        }, {
+          name: 'density',
+          cpu: 8,
+          memory: 512,
+          disk: 40
+        }]
       }]
     }, {
       name: 'Heavy',
-      allocationType: [{
-        name: 'experience',
-        cpu: 4,
-        memory: 6,
-        disk: 20
+      type: [{
+        name: 'VDI',
+        allocationType: [{
+          name: 'experience',
+          cpu: 4,
+          memory: 6144,
+          disk: 20
+        }, {
+          name: 'density',
+          cpu: 3,
+          memory: 8192,
+          disk: 20
+        }]
       }, {
-        name: 'density',
-        cpu: 3,
-        memory: 8,
-        disk: 20
+        name: 'SBC',
+        allocationType: [{
+          name: 'experience',
+          cpu: 8,
+          memory: 1280,
+          disk: 60
+        }, {
+          name: 'density',
+          cpu: 3,
+          memory: 1024,
+          disk: 40
+        }]
       }]
     }],
 
@@ -253,7 +301,8 @@ export default new Vuex.Store({
     _selectedArchetypeOS: 'wd10',
     _selectedArchetypeAssignment: 'pooled',
     _selectedConcurrentUsers: 100,
-    _selectedSolutionRAMCache: 'true'
+    _selectedSolutionRAMCache: 'true',
+    _selectedCCUperSBC: 25
   },
   getters: {
     getSelectedArchetypeWorkloadDefinition: (state) => (name) => {
@@ -263,13 +312,13 @@ export default new Vuex.Store({
       return state.archetypeOSCollection.find(def => def.tag === state._selectedArchetypeOS)
     },
     getSelectedArchetypeCPU: (state) => () => {
-      return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).cpu
+      return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).type.find(def => def.name === state._selectedSolutionType).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).cpu
     },
     getSelectedArchetypeMemory: (state) => () => {
-      return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).memory
+      return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).type.find(def => def.name === state._selectedSolutionType).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).memory
     },
     getSelectedArchetypeDisk: (state) => () => {
-      return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).disk
+      return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).type.find(def => def.name === state._selectedSolutionType).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).disk
     },
     getSolutionType: (state) => () => {
       return state.solutionTypeCollection.find(def => def.tag === state._selectedSolutionType)
@@ -325,6 +374,10 @@ export default new Vuex.Store({
     SET_SOLUTION_RAM_CACHE (state, payload) {
       // eslint-disable-next-line
       state._selectedSolutionRAMCache = payload
+    },
+    SET_CONCURRENT_USERS_PER_SBC (state, payload) {
+    // eslint-disable-next-line
+    state._selectedCCUperSBC = payload
     }
   },
   actions: {
