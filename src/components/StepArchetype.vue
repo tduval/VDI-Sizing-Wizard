@@ -20,8 +20,9 @@
                                 <span> Machine <strong>{{ ARCHETYPE_ASSIGNMENT }}</strong> to users</span><br>
                                 <span> <strong><v-icon small>fas fa-desktop</v-icon> {{ ARCHETYPE_OS }}</strong></span><br>
                             </div>
-                                <v-layout row wrap class="grey darken-2">
-                                    <v-flex><span> <strong>{{ ARCHETYPE_WORKLOAD }}</strong> Workload</span></v-flex>
+                            <div class="grey darken-2">
+                                <v-layout row wrap justify-space-between>
+                                    <v-flex class="text-xs-left pl-2"><span>Workload <strong>{{ ARCHETYPE_WORKLOAD }}</strong></span></v-flex>
                                     <v-flex>
                                         <v-icon small>fas fa-microchip</v-icon>
                                         {{ GET_SELECTED_ARCHETYPE_CPU }} Core
@@ -35,15 +36,78 @@
                                         {{ GET_SELECTED_ARCHETYPE_DISK }} GB
                                     </v-flex>
                                 </v-layout>
+                                <v-layout row wrap justify-space-between>
+                                    <v-flex class="text-xs-left pl-2"><span>Average expected storage IOPS per user</span></v-flex>
+                                    <v-flex><v-icon small>fas fa-tachometer-alt</v-icon>
+                                        <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
+                                    </v-flex>
+                                </v-layout>
+                            </div>
                         </v-card-text>
                     </v-card>
                 </v-flex>
                 <v-flex class="ml-3">
                     <v-form>
-                        <v-card class="pt-5">
+                        <v-card>
                             <v-card-text class="text-xs-center">
 
                                 <v-layout row wrap justify-space-around>
+                                    <v-flex xs3>
+                                        <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
+                                            <div slot="label">Define the VDI type
+                                                <v-tooltip top>
+                                                    <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                    <span>Tooltip</span>
+                                                </v-tooltip>
+                                            </div>
+                                            <v-radio value="pooled">
+                                                <div slot="label">Pooled <strong>Non-Persistent</strong> desktop</div>
+                                            </v-radio>
+                                            <v-radio value="dedicated">
+                                                <div slot="label">Dedicated <strong>Persistent</strong> desktop</div>
+                                            </v-radio>
+                                        </v-radio-group>
+                                    </v-flex>
+                                    <v-divider vertical></v-divider>
+                                    <v-flex xs3>
+                                        <div v-if="ARCHETYPE_ASSIGNMENT == 'pooled' && this.$store.state._selectedSolutionVendor == 'CITRIX'">
+                                            <v-radio-group v-model="SOLUTION_RAM_CACHE">
+                                                <div slot="label">Define the Write-Cache Model
+                                                    <v-tooltip top>
+                                                        <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                        <span>Tooltip</span>
+                                                    </v-tooltip>
+                                                </div>
+                                                <v-radio value='true'>
+                                                    <div slot="label"><strong>RAM-based Cache</strong> with overflow on disk</div>
+                                                </v-radio>
+                                                <v-radio value='false'>
+                                                    <div slot="label"><strong>Disk-based Cache</strong> only</div>
+                                                </v-radio>
+                                            </v-radio-group>
+                                        </div>
+                                    </v-flex>
+                                    <v-divider vertical></v-divider>
+                                    <v-flex xs3>
+                                        <v-radio-group v-model="ARCHETYPE_RESALLOCATION">
+                                            <div slot="label">Define the virtual resources allocation
+                                                <v-tooltip top>
+                                                    <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                    <span>Tooltip</span>
+                                                </v-tooltip>
+                                            </div>
+                                            <v-radio value="experience">
+                                                <div slot="label">Higher <strong>User Experience</strong></div>
+                                            </v-radio>
+                                            <v-radio value="density">
+                                                <div slot="label">Higher <strong>Density</strong></div>
+                                            </v-radio>
+                                        </v-radio-group>
+                                    </v-flex>
+                                </v-layout>
+
+                                <v-divider></v-divider>
+                                <v-layout row wrap justify-space-around class="py-3">
                                     <v-flex xs3>
                                         <v-text-field prepend-icon="fas fa-users" mask="#####" type="number" v-model="CONCURRENT_USERS">
                                             <template slot="label">
@@ -51,10 +115,9 @@
                                             </template>
                                         </v-text-field>
                                     </v-flex>
-
+                                    <v-divider vertical></v-divider>
                                     <v-flex xs6>
                                         <v-slider
-                                            label="What type of user's workload ?"
                                             v-model="ARCHETYPE_WORKLOAD"
                                             :tick-labels="workloadLabel"
                                             always-dirty
@@ -64,6 +127,12 @@
                                             thumb-size="48"
                                             ticks="always"
                                             tick-size="5">
+                                            <div slot="label">What type of user's workload ?
+                                                <v-tooltip top>
+                                                    <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                    <span>Tooltip</span>
+                                                </v-tooltip>
+                                            </div>
                                             <template slot="thumb-label" slot-scope="props">
                                                 <span>
                                                     {{ workloadLabel[props.value] }}
@@ -72,42 +141,30 @@
                                         </v-slider>
                                     </v-flex>
                                 </v-layout>
+
                                 <v-divider></v-divider>
-                                <v-layout row wrap justify-space-around>
+                                <v-layout row wrap justify-space-around class="py-3">
                                     <v-flex xs3>
-                                        <v-radio-group v-model="ARCHETYPE_RESALLOCATION">
-                                            <div slot="label">Define the virtual resources allocation</div>
-                                            <v-radio value="experience">
-                                                <div slot="label">Higher <strong>User Experience</strong></div>
-                                            </v-radio>
-                                            <v-radio value="density">
-                                                <div slot="label">Higher <strong>Density</strong></div>
-                                            </v-radio>
-                                        </v-radio-group>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <div class="theme--light v-label text-xs-left mt-3 pt-1">Select your target Operating System</div>
+                                        <div class="theme--light v-label text-xs-left mt-3 pt-1">Select your target Operating System
+                                            <v-tooltip top>
+                                                <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                <span>Tooltip</span>
+                                            </v-tooltip>
+                                        </div>
                                         <v-select
                                           v-model="ARCHETYPE_OS"
                                           :hint="GET_SELECTED_ARCHETYPE_OS_DEFINITION.family+' '+GET_SELECTED_ARCHETYPE_OS_DEFINITION.type+' family'"
                                           :prepend-icon="GET_SELECTED_ARCHETYPE_OS_DEFINITION.icon"
                                           persistent-hint
-                                          :items="GET_ARCHETYPE_OS_COLLECTION"
+                                          :items="GET_ARCHETYPE_OS_COLLECTION.filter(def => def.family == 'Windows')"
                                           item-text="name"
                                           item-value="tag"
                                         >
                                         </v-select>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
-                                            <div slot="label">Define the VDI type</div>
-                                            <v-radio value="pooled">
-                                                <div slot="label">Pooled <strong>Non-Persistent</strong> desktop</div>
-                                            </v-radio>
-                                            <v-radio value="dedicated" disabled>
-                                                <div slot="label">Dedicated <strong>Persistent</strong> desktop</div>
-                                            </v-radio>
-                                        </v-radio-group>
                                     </v-flex>
                                 </v-layout>
 
@@ -145,6 +202,9 @@ export default {
     },
     GET_SELECTED_ARCHETYPE_OS_DEFINITION () {
       return this.$store.getters.getSelectedArchetypeOSCollection()
+    },
+    GET_SELECTED_AVERAGE_WORKLOAD_IOPS () {
+      return this.$store.getters.getAverageWorkloadIOPS()
     },
     ARCHETYPE_OS: {
       get () {
@@ -186,6 +246,14 @@ export default {
       },
       set (value) {
         this.$store.commit('SET_CONCURRENT_USERS', value)
+      }
+    },
+    SOLUTION_RAM_CACHE: {
+      get () {
+        return this.$store.state._selectedSolutionRAMCache
+      },
+      set (value) {
+        this.$store.commit('SET_SOLUTION_RAM_CACHE', value)
       }
     }
   },

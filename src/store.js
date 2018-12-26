@@ -132,37 +132,37 @@ export default new Vuex.Store({
       os: [{
         name: 'wd7',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 10
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 1
         }]
       }, {
         name: 'wd10',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 12
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 1
         }]
       }, {
         name: 'ws12',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 3
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 0.5
         }]
       }, {
         name: 'ws16',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 4
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 1
         }]
       }]
@@ -171,37 +171,37 @@ export default new Vuex.Store({
       os: [{
         name: 'wd7',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 15
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 1
         }]
       }, {
         name: 'wd10',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 20
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 1.5
         }]
       }, {
         name: 'ws12',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 4
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 0.5
         }]
       }, {
         name: 'ws16',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 6
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 1
         }]
       }]
@@ -210,37 +210,37 @@ export default new Vuex.Store({
       os: [{
         name: 'wd7',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 25
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 2
         }]
       }, {
         name: 'wd10',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 35
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 3
         }]
       }, {
         name: 'ws12',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 5
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 0.5
         }]
       }, {
         name: 'ws16',
         value: [{
-          ramcache: false,
+          ramcache: 'false',
           iops: 8
         }, {
-          ramcache: true,
+          ramcache: 'true',
           iops: 1
         }]
       }]
@@ -253,7 +253,7 @@ export default new Vuex.Store({
     _selectedArchetypeOS: 'wd10',
     _selectedArchetypeAssignment: 'pooled',
     _selectedConcurrentUsers: 100,
-    _selectedSolutionRAMCache: true
+    _selectedSolutionRAMCache: 'true'
   },
   getters: {
     getSelectedArchetypeWorkloadDefinition: (state) => (name) => {
@@ -313,7 +313,7 @@ export default new Vuex.Store({
     },
     SET_ARCHETYPE_ASSIGNMENT (state, payload) {
       if (payload === 'dedicated') {
-        state._selectedSolutionRAMCache = false
+        state._selectedSolutionRAMCache = 'false'
       }
       // eslint-disable-next-line
       state._selectedArchetypeAssignment = payload
