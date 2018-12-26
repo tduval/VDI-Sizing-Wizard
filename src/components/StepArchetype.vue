@@ -163,9 +163,10 @@
                                         <div v-if="ARCHETYPE_ASSIGNMENT != 'dedicated' && this.$store.state._selectedSolutionVendor == 'CITRIX'">
                                             <v-radio-group v-model="SOLUTION_RAM_CACHE">
                                                 <div slot="label">Define the Write-Cache Model
-                                                    <v-tooltip top>
+                                                    <v-tooltip top max-width="800px">
                                                         <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
-                                                        <span>Tooltip</span>
+                                                        <span>Provisioning Services and Machine Creation Services have the capability to utilize a portion of the virtual machine’s RAM as a buffer for the storage cache.<br>
+                                                        The RAM cache is used to improve the performance of traditional storage by sharing the virtual machine’s non-paged pool memory.</span>
                                                     </v-tooltip>
                                                 </div>
                                                 <v-radio value='true'>
@@ -181,9 +182,10 @@
                                     <v-flex xs3>
                                         <v-radio-group v-model="ARCHETYPE_RESALLOCATION">
                                             <div slot="label">Define the virtual resources allocation
-                                                <v-tooltip top>
+                                                <v-tooltip top max-width="800px">
                                                     <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
-                                                    <span>Tooltip</span>
+                                                    <span>Virtual resources require proper allocation of the processor, memory and disk. These decisions have a direct impact on the amount of hardware required as well as the user experience.<br>
+                                                    The key to successful resource allocation is to ensure that virtual desktops and applications offer similar levels of performance to physical desktops. Otherwise, productivity and overall user satisfaction will be affected. Allocating resources to the virtual machines above their requirements however is inefficient and expensive for the business.</span>
                                                 </v-tooltip>
                                             </div>
                                             <v-radio value="experience">
@@ -221,7 +223,10 @@
                                             <div slot="label">What type of user's workload ?
                                                 <v-tooltip top>
                                                     <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
-                                                    <span>Tooltip</span>
+                                                    <span>Types and number of applications accessed by the user impacts overall density and the appropriate VDI model<br>
+                                                        <strong>Light</strong> – 1-2 office productivity apps or kiosk.<br>
+                                                        <strong>Medium</strong> – 2-10 office productivity apps with light multimedia use.<br>
+                                                        <strong>Heavy</strong> – Intense multimedia, data processing or application development.<br></span>
                                                 </v-tooltip>
                                             </div>
                                             <template slot="thumb-label" slot-scope="props">
@@ -265,7 +270,7 @@
                                         <div class="theme--light v-label text-xs-left mt-3 pt-1">Select your target Operating System
                                             <v-tooltip top>
                                                 <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
-                                                <span>Tooltip</span>
+                                                <span>NOTE: Only Windows OS currently displayed</span>
                                             </v-tooltip>
                                         </div>
                                         <v-select
