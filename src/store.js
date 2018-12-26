@@ -353,6 +353,9 @@ export default new Vuex.Store({
       state.dialogSettings = payload
     },
     SET_SOLUTION_VENDOR (state, payload) {
+      if (payload === 'VMWARE') {
+        state._selectedSolutionRAMCache = 'false'
+      }
       // eslint-disable-next-line
       state._selectedSolutionVendor = payload
     },
