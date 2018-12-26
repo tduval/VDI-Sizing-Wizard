@@ -37,13 +37,15 @@
 
                                 <v-expansion-panel-content>
                                     <div slot="header">Overcommit vCPU per pCPU Ratio Definition</div>
-                                    <v-data-table :headers="[{text: 'Resources Allocation Type', value: 'name'},
-                                                    { text: 'value', value: 'value' }]"
+                                    <v-data-table :headers="[{text: 'Solution Type', value: 'name'},
+                                                    { text: 'Overcommit Ratio (vCPU per pCPU) for User Experience', value: 'value' },
+                                                    { text: 'Overcommit Ratio (vCPU per pCPU) for Scalable Density', value: 'value' }]"
                                         :items="GET_OVERCOMMIT_CPU_DEFINITION"
                                         class="elevation-1 px-5">
                                         <template slot="items" slot-scope="props">
                                             <td><strong>{{ props.item.name }}</strong></td>
-                                            <td><code>{{ props.item.value }}</code></td>
+                                            <td>{{ props.item.value[0].value }}</td>
+                                            <td>{{ props.item.value[1].value }}</td>
                                         </template>
                                     </v-data-table>
                                 </v-expansion-panel-content>

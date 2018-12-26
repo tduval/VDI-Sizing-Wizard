@@ -108,21 +108,21 @@ export default new Vuex.Store({
     }],
 
     OvercommitRatioCPU: [{
-      name: 'experience',
+      name: 'vdi',
       value: [{
-        name: 'vdi',
+        name: 'experience',
         value: 6
       }, {
-        name: 'sbc',
-        value: 1.5
+        name: 'density',
+        value: 8
       }]
     }, {
-      name: 'density',
+      name: 'sbc',
       value: [{
-        name: 'vdi',
-        value: 8
+        name: 'experience',
+        value: 1.5
       }, {
-        name: 'sbc',
+        name: 'density',
         value: 2
       }]
     }],
@@ -155,7 +155,7 @@ export default new Vuex.Store({
       return state.solutionTypeCollection.find(def => def.tag === state._selectedSolutionType)
     },
     getOvercommitRatioCPU: (state) => () => {
-      return state.OvercommitRatioCPU.find(def => def.name === state._selectedArchetypeResourceAllocation).value.find(def => def.name === state._selectedSolutionType).value
+      return state.OvercommitRatioCPU.find(def => def.name === state._selectedSolutionType).value.find(def => def.name === state._selectedArchetypeResourceAllocation).value
     }
     // getContainerPerImageById: state => id =>
     //   state.containers.filter(container => container.Image === id),
