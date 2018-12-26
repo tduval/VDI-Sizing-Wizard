@@ -74,12 +74,14 @@ export default new Vuex.Store({
           name: 'experience',
           cpu: 2,
           memory: 3072,
-          disk: 10
+          disk: 10,
+          ramcache: 256
         }, {
           name: 'density',
           cpu: 2,
           memory: 2048,
-          disk: 10
+          disk: 10,
+          ramcache: 128
         }]
       }, {
         name: 'SBC',
@@ -87,12 +89,14 @@ export default new Vuex.Store({
           name: 'experience',
           cpu: 8,
           memory: 320,
-          disk: 60
+          disk: 60,
+          ramcache: 4096
         }, {
           name: 'density',
           cpu: 8,
           memory: 256,
-          disk: 40
+          disk: 40,
+          ramcache: 2048
         }]
       }]
     }, {
@@ -103,12 +107,14 @@ export default new Vuex.Store({
           name: 'experience',
           cpu: 3,
           memory: 4096,
-          disk: 15
+          disk: 15,
+          ramcache: 512
         }, {
           name: 'density',
           cpu: 2,
           memory: 3072,
-          disk: 15
+          disk: 15,
+          ramcache: 256
         }]
       }, {
         name: 'SBC',
@@ -116,12 +122,14 @@ export default new Vuex.Store({
           name: 'experience',
           cpu: 8,
           memory: 640,
-          disk: 60
+          disk: 60,
+          ramcache: 8192
         }, {
           name: 'density',
           cpu: 8,
           memory: 512,
-          disk: 40
+          disk: 40,
+          ramcache: 4096
         }]
       }]
     }, {
@@ -132,12 +140,14 @@ export default new Vuex.Store({
           name: 'experience',
           cpu: 4,
           memory: 6144,
-          disk: 20
+          disk: 20,
+          ramcache: 1024
         }, {
           name: 'density',
           cpu: 3,
           memory: 8192,
-          disk: 20
+          disk: 20,
+          ramcache: 512
         }]
       }, {
         name: 'SBC',
@@ -145,12 +155,14 @@ export default new Vuex.Store({
           name: 'experience',
           cpu: 8,
           memory: 1280,
-          disk: 60
+          disk: 60,
+          ramcache: 10240
         }, {
           name: 'density',
           cpu: 3,
           memory: 1024,
-          disk: 40
+          disk: 40,
+          ramcache: 6144
         }]
       }]
     }],
@@ -320,6 +332,9 @@ export default new Vuex.Store({
     getSelectedArchetypeDisk: (state) => () => {
       return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).type.find(def => def.name === state._selectedSolutionType).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).disk
     },
+    getSelectedArchetypeRamCache: (state) => () => {
+      return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).type.find(def => def.name === state._selectedSolutionType).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).ramcache
+    },
     getSolutionType: (state) => () => {
       return state.solutionTypeCollection.find(def => def.tag === state._selectedSolutionType)
     },
@@ -344,6 +359,10 @@ export default new Vuex.Store({
     SET_SOLUTION_TYPE (state, payload) {
       if (payload === 'SBC') {
         state._selectedArchetypeOS = 'ws16'
+        state._selectedArchetypeAssignment = 'session'
+      } else {
+        state._selectedArchetypeOS = 'wd10'
+        state._selectedArchetypeAssignment = 'pooled'
       }
       // eslint-disable-next-line
       state._selectedSolutionType = payload

@@ -36,7 +36,7 @@
                                         <v-tooltip top>
                                             <div slot="activator">
                                                 <v-icon small>fas fa-memory</v-icon>
-                                                {{ GET_SELECTED_ARCHETYPE_MEMORY/1024 }} GB
+                                                {{ SOLUTION_RAM_CACHE === 'true' ? (GET_SELECTED_ARCHETYPE_MEMORY + GET_SELECTED_ARCHETYPE_RAMCACHE)/1024 : GET_SELECTED_ARCHETYPE_MEMORY/1024 }} GB
                                             </div>
                                             <span>RAM per VDI</span>
                                         </v-tooltip>
@@ -87,7 +87,7 @@
                                         <v-tooltip top>
                                             <div slot="activator">
                                                 <v-icon small>fas fa-memory</v-icon>
-                                                {{ (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC)/1024 }} GB
+                                                {{ SOLUTION_RAM_CACHE === 'true' ? ((GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC)+ GET_SELECTED_ARCHETYPE_RAMCACHE)/1024 : (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC)/1024 }} GB
                                             </div>
                                             <span>RAM per SBC</span>
                                         </v-tooltip>
@@ -252,7 +252,7 @@
                                         </v-slider>
                                     </v-flex>
                                     <v-flex xs3>
-                                        <div class="theme--light v-label mt-3 pt-1">Required number of Virtual Server</div>
+                                        <div class="theme--light v-label mt-3 pt-1">Required number of SBC Server</div>
                                         <div>
                                             <div class="headline mt-1 pt-3"><span class="font-weight-black error--text">{{ CONCURRENT_USERS / CONCURRENT_USERS_PER_SBC }}</span> </div>
                                         </div>
@@ -286,16 +286,19 @@
                                             <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_CPU }}</span> vCPU</div>
                                         </div>
                                         <div v-else>
-                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_CPU }}</span> vCPU <br>(NUMA Node)</div>
+                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_CPU }}</span> vCPU</div>
+                                            <div class="headline mt-1"><span class="font-weight-thin">(NUMA Node)</span></div>
                                         </div>
                                     </v-flex>
                                     <v-flex xs2>
                                         <div class="theme--light v-label mt-3 pt-1">Memory RAM</div>
                                         <div v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
                                             <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY }}</span> MB</div>
+                                            <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'"><span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE }} MB</span><span class="caption"> of RAM Cache</span></div>
                                         </div>
                                         <div v-else>
-                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC }}</span> MB <br>({{ GET_SELECTED_ARCHETYPE_MEMORY }}MB per user)</div>
+                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC }}</span> MB <span class="caption">({{ GET_SELECTED_ARCHETYPE_MEMORY }}MB per user)</span></div>
+                                            <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'"><span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE }} MB</span><span class="caption"> of RAM Cache</span></div>
                                         </div>
                                     </v-flex>
                                     <v-flex xs2>
@@ -336,6 +339,9 @@ export default {
     GET_SELECTED_ARCHETYPE_DISK () {
       return this.$store.getters.getSelectedArchetypeDisk()
     },
+    GET_SELECTED_ARCHETYPE_RAMCACHE () {
+      return this.$store.getters.getSelectedArchetypeRamCache()
+    },
     GET_ARCHETYPE_OS_COLLECTION () {
       return this.$store.state.archetypeOSCollection
     },
@@ -344,6 +350,9 @@ export default {
     },
     GET_SELECTED_AVERAGE_WORKLOAD_IOPS () {
       return this.$store.getters.getAverageWorkloadIOPS()
+    },
+    GET_TOTAL_RAM_MEMORY () {
+      return this.SOLUTION_RAM_CACHE === 'true' ? this.GET_SELECTED_ARCHETYPE_MEMORY + this.GET_SELECTED_ARCHETYPE_RAMCACHE : this.GET_SELECTED_ARCHETYPE_MEMORY
     },
     ARCHETYPE_OS: {
       get () {
