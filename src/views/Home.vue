@@ -2,17 +2,17 @@
     <div>
         <v-stepper v-model="currentStep">
             <v-stepper-header>
-                <v-stepper-step :complete="currentStep > 1" step="1">
+                <v-stepper-step :complete="currentStep > 1" step="1" color="#42b883">
                     Vendor
                 </v-stepper-step>
                 <v-divider></v-divider>
 
-                <v-stepper-step :complete="currentStep > 2" step="2">
+                <v-stepper-step :complete="currentStep > 2" step="2" color="#42b883">
                     Type
                 </v-stepper-step>
                 <v-divider></v-divider>
 
-                <v-stepper-step step="3">
+                <v-stepper-step step="3" color="#42b883">
                     Archetype
                 </v-stepper-step>
             </v-stepper-header>
@@ -50,7 +50,7 @@
                         <StepArchetype></StepArchetype>
                     </v-card>
 
-                    <v-btn color="success" to="/computed">
+                    <v-btn color="#42b883" to="/computed" dark>
                         Finish
                     </v-btn>
 

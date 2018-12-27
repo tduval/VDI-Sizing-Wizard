@@ -285,6 +285,7 @@
                                         >
                                         </v-select>
                                     </v-flex>
+                                    <v-divider vertical></v-divider>
                                     <v-flex xs2>
                                         <div class="theme--light v-label mt-3 pt-1">Processor</div>
                                         <div v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
@@ -298,12 +299,23 @@
                                     <v-flex xs2>
                                         <div class="theme--light v-label mt-3 pt-1">Memory RAM</div>
                                         <div v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
-                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY }}</span> MB</div>
-                                            <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'"><span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE }} MB</span><span class="caption"> of RAM Cache</span></div>
+                                            <div class="headline mt-1 pt-3">
+                                                <span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY }} MB</span>
+                                            </div>
+                                            <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'">
+                                                <span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE }} MB</span>
+                                                <span class="caption"> of RAM Cache</span>
+                                            </div>
                                         </div>
                                         <div v-else>
-                                            <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC }}</span> MB <span class="caption">({{ GET_SELECTED_ARCHETYPE_MEMORY }}MB per user)</span></div>
-                                            <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'"><span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE }} MB</span><span class="caption"> of RAM Cache</span></div>
+                                            <div class="headline mt-1 pt-3">
+                                                <span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC }} MB</span>
+                                                <span class="caption"> ({{ GET_SELECTED_ARCHETYPE_MEMORY }}MB per user)</span>
+                                            </div>
+                                            <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'">
+                                                <span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE }} MB</span>
+                                                <span class="caption"> of RAM Cache</span>
+                                            </div>
                                         </div>
                                     </v-flex>
                                     <v-flex xs2>
