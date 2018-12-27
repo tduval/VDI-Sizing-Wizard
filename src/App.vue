@@ -1,12 +1,14 @@
 <template>
     <v-app>
-        <v-toolbar app>
-            <v-btn icon to="/">
-                <v-icon>fas fa-home</v-icon>
-            </v-btn>
-            <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-                <span>VDI Sizing Wizard</span>
-            </v-toolbar-title>
+        <v-toolbar app dark>
+            <v-avatar tile>
+                <img src="logo.png" alt="VueJS Logo">
+            </v-avatar>
+            <v-toolbar-items>
+                <v-btn dark flat href="/" large>
+                    <span class="title font-weight-medium">VDI Sizing Wizard</span>
+                </v-btn>
+            </v-toolbar-items>
             <v-spacer></v-spacer>
 
             <v-toolbar-items>
