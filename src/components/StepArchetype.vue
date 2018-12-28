@@ -259,7 +259,7 @@
                                     <v-flex xs3>
                                         <div class="theme--light v-label mt-3 pt-1">Required number of SBC Server</div>
                                         <div>
-                                            <div class="headline mt-1 pt-3"><span class="font-weight-black error--text">{{ CONCURRENT_USERS / CONCURRENT_USERS_PER_SBC }}</span> </div>
+                                            <div class="headline mt-1 pt-3"><span class="font-weight-black error--text">{{ GET_NUMBER_OF_VM }}</span> </div>
                                         </div>
                                     </v-flex>
                                 </v-layout>
@@ -405,20 +405,20 @@ export default {
         this.$store.commit('SET_ARCHETYPE_ASSIGNMENT', value)
       }
     },
-    CONCURRENT_USERS: {
-      get () {
-        return this.$store.state._selectedConcurrentUsers
-      },
-      set (value) {
-        this.$store.commit('SET_CONCURRENT_USERS', value)
-      }
-    },
     SOLUTION_RAM_CACHE: {
       get () {
         return this.$store.state._selectedSolutionRAMCache
       },
       set (value) {
         this.$store.commit('SET_SOLUTION_RAM_CACHE', value)
+      }
+    },
+    CONCURRENT_USERS: {
+      get () {
+        return this.$store.state._selectedConcurrentUsers
+      },
+      set (value) {
+        this.$store.commit('SET_CONCURRENT_USERS', value)
       }
     },
     CONCURRENT_USERS_PER_SBC: {
@@ -428,6 +428,9 @@ export default {
       set (value) {
         this.$store.commit('SET_CONCURRENT_USERS_PER_SBC', value)
       }
+    },
+    GET_NUMBER_OF_VM () {
+      return this.$store.getters.getNumberOfRequiredVMs()
     }
   },
   methods: {
