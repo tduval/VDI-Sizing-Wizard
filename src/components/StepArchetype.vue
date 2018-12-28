@@ -36,7 +36,7 @@
                                         <v-tooltip top>
                                             <div slot="activator">
                                                 <v-icon small>fas fa-memory</v-icon>
-                                                {{ SOLUTION_RAM_CACHE === 'true' ? (GET_SELECTED_ARCHETYPE_MEMORY + GET_SELECTED_ARCHETYPE_RAMCACHE)/1024 : GET_SELECTED_ARCHETYPE_MEMORY/1024 }} GB
+                                                {{ SOLUTION_RAM_CACHE === 'true' ? (GET_SELECTED_ARCHETYPE_MEMORY + GET_SELECTED_ARCHETYPE_RAMCACHE) : GET_SELECTED_ARCHETYPE_MEMORY | units('MB', 'GB', true) }}
                                             </div>
                                             <span>RAM per VDI</span>
                                         </v-tooltip>
@@ -45,7 +45,7 @@
                                         <v-tooltip top>
                                             <div slot="activator">
                                                 <v-icon small>fas fa-hdd</v-icon>
-                                                {{ GET_SELECTED_ARCHETYPE_DISK }} GB
+                                                {{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'GB', true) }}
                                             </div>
                                             <span>Write Disk per VDI</span>
                                         </v-tooltip>
@@ -87,7 +87,7 @@
                                         <v-tooltip top>
                                             <div slot="activator">
                                                 <v-icon small>fas fa-memory</v-icon>
-                                                {{ SOLUTION_RAM_CACHE === 'true' ? ((GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM)+ GET_SELECTED_ARCHETYPE_RAMCACHE)/1024 : (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM)/1024 }} GB
+                                                {{ SOLUTION_RAM_CACHE === 'true' ? ((GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM)+ GET_SELECTED_ARCHETYPE_RAMCACHE) : (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM) | units('MB', 'GB', true) }}
                                             </div>
                                             <span>RAM per SBC</span>
                                         </v-tooltip>
@@ -96,7 +96,7 @@
                                         <v-tooltip top>
                                             <div slot="activator">
                                                 <v-icon small>fas fa-hdd</v-icon>
-                                                {{ GET_SELECTED_ARCHETYPE_DISK }} GB
+                                                {{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'MB', true) }}
                                             </div>
                                             <span>Write Disk per SBC</span>
                                         </v-tooltip>
@@ -300,27 +300,27 @@
                                         <div class="theme--light v-label mt-3 pt-1">Memory RAM</div>
                                         <div v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
                                             <div class="headline mt-1 pt-3">
-                                                <span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY }} MB</span>
+                                                <span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY | units('MB', 'GB', true) }}</span>
                                             </div>
                                             <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'">
-                                                <span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE }} MB</span>
+                                                <span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE | units('MB', 'MB', true) }}</span>
                                                 <span class="caption"> of RAM Cache</span>
                                             </div>
                                         </div>
                                         <div v-else>
                                             <div class="headline mt-1 pt-3">
-                                                <span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM }} MB</span>
-                                                <span class="caption"> ({{ GET_SELECTED_ARCHETYPE_MEMORY }}MB per user)</span>
+                                                <span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM | units('MB', 'GB', true) }}</span>
+                                                <span class="caption"> ({{ GET_SELECTED_ARCHETYPE_MEMORY | units('MB', 'MB', true) }} per user)</span>
                                             </div>
                                             <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'">
-                                                <span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE }} MB</span>
+                                                <span class="font-weight-medium">+ {{ GET_SELECTED_ARCHETYPE_RAMCACHE | units('MB', 'MB', true) }}</span>
                                                 <span class="caption"> of RAM Cache</span>
                                             </div>
                                         </div>
                                     </v-flex>
                                     <v-flex xs2>
                                         <div class="theme--light v-label mt-3 pt-1">Write-Cache Disk</div>
-                                        <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_DISK }}</span> GB</div>
+                                        <div class="headline mt-1 pt-3"><span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'GB', true) }}</span></div>
                                     </v-flex>
                                 </v-layout>
 

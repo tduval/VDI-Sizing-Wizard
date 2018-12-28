@@ -89,11 +89,11 @@
                                         </v-flex>
                                         <v-divider vertical inset></v-divider>
                                         <v-flex class="pa-0">
-                                            <div class="font-weight-thin headline text-xs-center mt-3">{{ GET_SELECTED_MEMORY }}GB RAM</div>
+                                            <div class="font-weight-thin headline text-xs-center mt-3">{{ GET_SELECTED_MEMORY | units('MB', 'GB', true) }} RAM</div>
                                         </v-flex>
                                         <v-divider vertical inset></v-divider>
                                         <v-flex class="pa-0">
-                                            <div class="font-weight-thin headline text-xs-center mt-3">{{ GET_SELECTED_ARCHETYPE_DISK }}GB Disk</div>
+                                            <div class="font-weight-thin headline text-xs-center mt-3">{{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'GB', true) }} Disk</div>
                                         </v-flex>
                                     </v-layout>
                                 </v-flex>
@@ -146,9 +146,9 @@ export default {
     },
     GET_SELECTED_MEMORY () {
       if (this.GET_SELECTED_SOLUTION_TYPE.tag === 'SBC') {
-        return this.$store.getters.getSelectedArchetypeMemory() * this.CONCURRENT_USERS_PER_VM / 1024
+        return this.$store.getters.getSelectedArchetypeMemory() * this.CONCURRENT_USERS_PER_VM
       }
-      return this.$store.getters.getSelectedArchetypeMemory() / 1024
+      return this.$store.getters.getSelectedArchetypeMemory()
     },
     GET_SELECTED_ARCHETYPE_DISK () {
       return this.$store.getters.getSelectedArchetypeDisk()
