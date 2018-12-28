@@ -28,7 +28,7 @@
                         </v-card>
                     </v-flex>
 
-                    <v-flex>
+                    <v-flex d-flex>
                         <v-card>
                             <v-layout row wrap justify-space-between>
                                 <v-flex>
@@ -53,7 +53,9 @@
                                 </v-flex>
                                 <v-flex>
                                     <div class="font-weight-medium headline text-xs-center">Number of users per VM</div>
-                                    <div class="font-weight-thin headline text-xs-center mt-3">{{ CONCURRENT_USERS_PER_VM }}</div>
+                                    <div class="font-weight-thin headline text-xs-center mt-3">
+                                        <v-progress-circular :value="CONCURRENT_USERS_PER_VM" size="50">{{ CONCURRENT_USERS_PER_VM }}</v-progress-circular>
+                                    </div>
                                 </v-flex>
                                 <v-flex class="ma-0 pa-0">
                                     <div class="font-weight-medium headline text-xs-center"></div>
@@ -80,6 +82,7 @@
                                 </v-flex>
                                 <v-flex>
                                     <div class="font-weight-medium headline text-xs-center">VM Resources</div>
+                                    <v-divider></v-divider>
                                     <v-layout row wrap justify-space-between>
                                         <v-flex class="pa-0">
                                             <div class="font-weight-thin headline text-xs-center mt-3">{{ GET_SELECTED_ARCHETYPE_CPU }} vCPU</div>
@@ -95,6 +98,7 @@
                                     </v-layout>
                                 </v-flex>
                             </v-layout>
+
                         </v-card>
                     </v-flex>
                 </v-layout>
