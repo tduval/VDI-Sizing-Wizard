@@ -10,6 +10,7 @@
   "dependencies": {
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
+    "vue-units": "^1.0.4",
     "vuetify": "^1.3.14",
     "vuex": "^3.0.1"
   },
