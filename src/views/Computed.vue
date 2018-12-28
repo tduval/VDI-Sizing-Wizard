@@ -8,7 +8,7 @@
             </v-layout>
             <v-divider class="mt-1"></v-divider>
             <v-container grid-list-xl fluid class="pa-0">
-                <v-layout row wrap justify-space-around class="mt-5" fill-height>
+                <v-layout row wrap class="mt-5">
                     <v-flex xs3>
                         <v-card>
                             <v-img :src="GET_SELECTED_SOLUTION_VENDOR.imgSrc" aspect-ratio :alt="GET_SELECTED_SOLUTION_VENDOR.title" height="125" contain>
@@ -27,23 +27,74 @@
                             </v-card-actions>
                         </v-card>
                     </v-flex>
-                    <v-flex xs3>
-                        <v-card>
-                            <v-card-title primary-title>
-                                <div>
-                                    <h3 class="headline mb-0">{{ GET_SELECTED_SOLUTION_TYPE.title }}</h3>
-                                    <div><span v-html="GET_SELECTED_SOLUTION_TYPE.description"></span></div>
-                                </div>
-                            </v-card-title>
-                        </v-card>
-                    </v-flex>
+
                     <v-flex>
                         <v-card>
-                            Overall VMs: {{ COMPUTE_USERS }}
-                            Overall vCPU required: {{ COMPUTE_VCPU }}<br>
-                            Overall pCPU required: {{ COMPUTE_PCPU }}
-                            Overall Memory RAM required (GB): {{ COMPUTE_MEMORY }}<br>
-                            Overall Disk storage required (GB): {{ COMPUTE_DISK }}
+                            <v-layout row wrap justify-space-between>
+                                <v-flex>
+                                    <div class="font-weight-medium display-1 text-xs-center">Type of Solution</div>
+                                    <div class="font-weight-thin display-1 text-xs-center mt-3">{{ GET_SELECTED_SOLUTION_TYPE.title }}</div>
+                                </v-flex>
+                                <v-flex>
+                                    <div class="font-weight-medium display-1 text-xs-center">Type of usage</div>
+                                    <div class="font-weight-thin display-1 text-xs-center mt-3">{{ ARCHETYPE_ASSIGNMENT }}</div>
+                                </v-flex>
+                            </v-layout>
+                            <v-divider class="mx-5 my-3"></v-divider>
+
+                            <v-layout row wrap justify-space-between>
+                                <v-flex>
+                                    <div class="font-weight-medium headline text-xs-center">Concurrent Users</div>
+                                    <div class="font-weight-thin headline text-xs-center mt-3">{{ CONCURRENT_USERS }}</div>
+                                </v-flex>
+                                <v-flex class="ma-0 pa-0">
+                                    <div class="font-weight-medium headline text-xs-center"> </div>
+                                    <div class="font-weight-thin headline text-xs-center mt-3">/</div>
+                                </v-flex>
+                                <v-flex>
+                                    <div class="font-weight-medium headline text-xs-center">Number of users per VM</div>
+                                    <div class="font-weight-thin headline text-xs-center mt-3">{{ CONCURRENT_USERS_PER_VM }}</div>
+                                </v-flex>
+                                <v-flex class="ma-0 pa-0">
+                                    <div class="font-weight-medium headline text-xs-center"></div>
+                                    <div class="font-weight-thin headline text-xs-center mt-3">=</div>
+                                </v-flex>
+                                <v-flex>
+                                    <div class="font-weight-medium headline text-xs-center">Required number of VMs</div>
+                                    <div class="font-weight-thin headline text-xs-center mt-3">{{ NUMBER_OF_VM }}</div>
+                                </v-flex>
+                            </v-layout>
+
+                            <v-divider class="mx-5 my-3"></v-divider>
+                            <v-layout row wrap justify-space-between>
+                                <v-flex>
+                                    <div class="font-weight-medium headline text-xs-center">Workload Type</div>
+                                    <div class="font-weight-thin headline text-xs-center mt-3">{{ ARCHETYPE_WORKLOAD }}</div>
+                                </v-flex>
+                                <v-flex>
+                                    <div class="font-weight-medium headline text-xs-center">Operating System</div>
+                                    <div class="font-weight-thin headline text-xs-center mt-3">
+                                        <v-icon>{{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.icon }}</v-icon>
+                                        {{ GET_SELECTED_OS.name }}
+                                    </div>
+                                </v-flex>
+                                <v-flex>
+                                    <div class="font-weight-medium headline text-xs-center">VM Resources</div>
+                                    <v-layout row wrap justify-space-between>
+                                        <v-flex class="pa-0">
+                                            <div class="font-weight-thin headline text-xs-center mt-3">{{ GET_SELECTED_ARCHETYPE_CPU }} vCPU</div>
+                                        </v-flex>
+                                        <v-divider vertical inset></v-divider>
+                                        <v-flex class="pa-0">
+                                            <div class="font-weight-thin headline text-xs-center mt-3">{{ GET_SELECTED_MEMORY }}GB RAM</div>
+                                        </v-flex>
+                                        <v-divider vertical inset></v-divider>
+                                        <v-flex class="pa-0">
+                                            <div class="font-weight-thin headline text-xs-center mt-3">{{ GET_SELECTED_ARCHETYPE_DISK }}GB Disk</div>
+                                        </v-flex>
+                                    </v-layout>
+                                </v-flex>
+                            </v-layout>
                         </v-card>
                     </v-flex>
                 </v-layout>
@@ -77,20 +128,68 @@ export default {
     GET_SELECTED_SOLUTION_TYPE () {
       return this.$store.getters.getSolutionType()
     },
-    COMPUTE_USERS () {
-      return this.$store.state._selectedConcurrentUsers
+    GET_SELECTED_OS () {
+      return this.$store.getters.getSelectedArchetypeOSCollection()
+    },
+    GET_SELECTED_ARCHETYPE () {
+      return this.$store.getters.getSelectedArchetype()
+    },
+    GET_SELECTED_ARCHETYPE_CPU () {
+      return this.$store.getters.getSelectedArchetypeCPU()
+    },
+    GET_SELECTED_ARCHETYPE_MEMORY () {
+      return this.$store.getters.getSelectedArchetypeMemory()
+    },
+    GET_SELECTED_MEMORY () {
+      if (this.GET_SELECTED_SOLUTION_TYPE.tag === 'SBC') {
+        return this.$store.getters.getSelectedArchetypeMemory() * this.CONCURRENT_USERS_PER_VM / 1024
+      }
+      return this.$store.getters.getSelectedArchetypeMemory() / 1024
+    },
+    GET_SELECTED_ARCHETYPE_DISK () {
+      return this.$store.getters.getSelectedArchetypeDisk()
+    },
+    GET_SELECTED_ARCHETYPE_RAMCACHE () {
+      return this.$store.getters.getSelectedArchetypeRamCache()
+    },
+    GET_SELECTED_ARCHETYPE_OS_DEFINITION () {
+      return this.$store.getters.getSelectedArchetypeOSCollection()
+    },
+    GET_SELECTED_AVERAGE_WORKLOAD_IOPS () {
+      return this.$store.getters.getAverageWorkloadIOPS()
     },
     COMPUTE_VCPU () {
-      return this.$store.getters.getSelectedArchetypeCPU() * this.COMPUTE_USERS
+      return this.$store.getters.getSelectedArchetypeCPU() * this.NUMBER_OF_VM
     },
     COMPUTE_MEMORY () {
-      return this.$store.getters.getSelectedArchetypeMemory() * this.COMPUTE_USERS
+      return this.$store.getters.getSelectedArchetypeMemory() * this.NUMBER_OF_VM
     },
     COMPUTE_DISK () {
-      return this.$store.getters.getSelectedArchetypeDisk() * this.COMPUTE_USERS
+      return this.$store.getters.getSelectedArchetypeDisk() * this.NUMBER_OF_VM
     },
     COMPUTE_PCPU () {
       return this.COMPUTE_VCPU / this.$store.getters.getOvercommitRatioCPU()
+    },
+    ARCHETYPE_WORKLOAD () {
+      return this.$store.state._selectedArchetypeWorkload
+    },
+    ARCHETYPE_RESALLOCATION () {
+      return this.$store.state._selectedArchetypeResourceAllocation
+    },
+    ARCHETYPE_ASSIGNMENT () {
+      return this.$store.state._selectedArchetypeAssignment
+    },
+    SOLUTION_RAM_CACHE () {
+      return this.$store.state._selectedSolutionRAMCache
+    },
+    CONCURRENT_USERS () {
+      return this.$store.state._selectedConcurrentUsers
+    },
+    CONCURRENT_USERS_PER_VM () {
+      return this.$store.state._selectedCCUperVM
+    },
+    NUMBER_OF_VM () {
+      return this.$store.getters.getNumberOfRequiredVMs()
     }
   },
   methods: {

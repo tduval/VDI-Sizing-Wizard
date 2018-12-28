@@ -322,11 +322,14 @@ export default new Vuex.Store({
     getSolutionVendor: (state) => () => {
       return state.solutionVendorCollection.find(def => def.tag === state._selectedSolutionVendor)
     },
+    getSelectedArchetypeOSCollection: (state) => () => {
+      return state.archetypeOSCollection.find(def => def.tag === state._selectedArchetypeOS)
+    },
     getSelectedArchetypeWorkloadDefinition: (state) => (name) => {
       return state.ArchetypeWorkloadDefinition.find(def => def.name === name)
     },
-    getSelectedArchetypeOSCollection: (state) => () => {
-      return state.archetypeOSCollection.find(def => def.tag === state._selectedArchetypeOS)
+    getSelectedArchetype: (state) => () => {
+      return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).type.find(def => def.name === state._selectedSolutionType).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation)
     },
     getSelectedArchetypeCPU: (state) => () => {
       return state.ArchetypeWorkloadDefinition.find(def => def.name === state._selectedArchetypeWorkload).type.find(def => def.name === state._selectedSolutionType).allocationType.find(def => def.name === state._selectedArchetypeResourceAllocation).cpu
