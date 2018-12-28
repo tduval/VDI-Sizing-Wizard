@@ -87,7 +87,7 @@
                                         <v-tooltip top>
                                             <div slot="activator">
                                                 <v-icon small>fas fa-memory</v-icon>
-                                                {{ SOLUTION_RAM_CACHE === 'true' ? ((GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC)+ GET_SELECTED_ARCHETYPE_RAMCACHE)/1024 : (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC)/1024 }} GB
+                                                {{ SOLUTION_RAM_CACHE === 'true' ? ((GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM)+ GET_SELECTED_ARCHETYPE_RAMCACHE)/1024 : (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM)/1024 }} GB
                                             </div>
                                             <span>RAM per SBC</span>
                                         </v-tooltip>
@@ -241,7 +241,7 @@
                                 <v-layout row wrap justify-space-around class="py-3" v-if="GET_SELECTED_SOLUTION_TYPE == 'SBC'">
                                     <v-flex xs8>
                                         <v-slider
-                                            v-model="CONCURRENT_USERS_PER_SBC"
+                                            v-model="CONCURRENT_USERS_PER_VM"
                                             ticks
                                             step="5"
                                             always-dirty
@@ -309,7 +309,7 @@
                                         </div>
                                         <div v-else>
                                             <div class="headline mt-1 pt-3">
-                                                <span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_SBC }} MB</span>
+                                                <span class="font-weight-black">{{ GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM }} MB</span>
                                                 <span class="caption"> ({{ GET_SELECTED_ARCHETYPE_MEMORY }}MB per user)</span>
                                             </div>
                                             <div class="headline mt-1" v-if="SOLUTION_RAM_CACHE == 'true'">
@@ -421,12 +421,12 @@ export default {
         this.$store.commit('SET_CONCURRENT_USERS', value)
       }
     },
-    CONCURRENT_USERS_PER_SBC: {
+    CONCURRENT_USERS_PER_VM: {
       get () {
-        return this.$store.state._selectedCCUperSBC
+        return this.$store.state._selectedCCUperVM
       },
       set (value) {
-        this.$store.commit('SET_CONCURRENT_USERS_PER_SBC', value)
+        this.$store.commit('SET_CONCURRENT_USERS_PER_VM', value)
       }
     },
     GET_NUMBER_OF_VM () {

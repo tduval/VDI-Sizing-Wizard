@@ -316,7 +316,7 @@ export default new Vuex.Store({
     _selectedArchetypeAssignment: 'pooled',
     _selectedSolutionRAMCache: 'true',
     _selectedConcurrentUsers: 100,
-    _selectedCCUperSBC: 25
+    _selectedCCUperVM: 1
   },
   getters: {
     getSolutionVendor: (state) => () => {
@@ -350,7 +350,7 @@ export default new Vuex.Store({
       return state.averageWorkloadIOPS.find(def => def.name === state._selectedArchetypeWorkload).os.find(def => def.name === state._selectedArchetypeOS).value.find(def => def.ramcache === state._selectedSolutionRAMCache).iops
     },
     getNumberOfRequiredVMs: (state) => () => {
-      return state._selectedConcurrentUsers / state._selectedCCUperSBC
+      return state._selectedConcurrentUsers / state._selectedCCUperVM
     }
     // getContainerPerImageById: state => id =>
     //   state.containers.filter(container => container.Image === id),
@@ -371,9 +371,11 @@ export default new Vuex.Store({
       if (payload === 'SBC') {
         state._selectedArchetypeOS = 'ws16'
         state._selectedArchetypeAssignment = 'session'
+        state._selectedCCUperVM = 25
       } else {
         state._selectedArchetypeOS = 'wd10'
         state._selectedArchetypeAssignment = 'pooled'
+        state._selectedCCUperVM = 1
       }
       // eslint-disable-next-line
       state._selectedSolutionType = payload
@@ -405,9 +407,9 @@ export default new Vuex.Store({
       // eslint-disable-next-line
       state._selectedConcurrentUsers = payload
     },
-    SET_CONCURRENT_USERS_PER_SBC (state, payload) {
+    SET_CONCURRENT_USERS_PER_VM (state, payload) {
       // eslint-disable-next-line
-      state._selectedCCUperSBC = payload
+      state._selectedCCUperVM = payload
     }
   },
   actions: {
