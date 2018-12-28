@@ -8,13 +8,13 @@ export default new Vuex.Store({
     dialogSettings: false,
     solutionVendorCollection: [{
       title: 'Citrix Virtual Apps and Desktops (formerly XenDesktop/XenApp)',
-      imgSrc: '/citrix-logo.png',
+      imgSrc: 'citrix-logo.png',
       website: 'https://www.citrix.com/products/citrix-virtual-apps-and-desktops/',
       description: '<ul><li>Virtual Apps Standard<li>Virtual Apps Advanced<li>Virtual Apps Premium<li>Virtual Desktops Standard<li>Virtual Apps & Desktops Advanced<li>Virtual Apps & Desktops Premium</ul>',
       tag: 'CITRIX'
     }, {
       title: 'VMware Horizon',
-      imgSrc: '/vmware-logo.png',
+      imgSrc: 'vmware-logo.png',
       website: 'https://www.vmware.com/products/horizon.html',
       description: '<ul><li>Horizon 7 Standard<li>Horizon 7 Advanced<li>Horizon 7 Enterprise<li>Horizon Apps Standard<li>Horizon Apps Advanced</ul>',
       tag: 'VMWARE'
