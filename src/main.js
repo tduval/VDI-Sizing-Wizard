@@ -10,8 +10,12 @@ Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(VueUnits)
 
-new Vue({
+const root = new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+})
+
+document.addEventListener('DOMContentLoaded', function () {
+  root.$mount('#app')
+})
