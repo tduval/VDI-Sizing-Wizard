@@ -11,6 +11,7 @@ Vue.use(Vuetify)
 Vue.use(VueUnits)
 
 new Vue({
+  vuetify: new Vuetify(),
   router,
   store,
   render: h => h(App)
