@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-container fluid text-xs-center>
+        <v-container fluid>
             <v-layout row wrap justify-center>
-                <v-flex>
+                <v-flex text-center>
                     <h2>Select your VDI-based solution</h2>
                 </v-flex>
             </v-layout>
@@ -12,7 +12,7 @@
                         <v-card-text class="text-xs-center">
                             <v-radio-group v-model="SOLUTION_VENDOR">
                                 <v-radio v-for="item in GET_SOLUTION_VENDOR_COLLECTION" :key="item.id" :value="item.tag">
-                                    <div slot="label"> {{ item.title }} </div>
+                                  <div slot="label">{{ item.title }}</div>
                                 </v-radio>
                             </v-radio-group>
                         </v-card-text>

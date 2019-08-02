@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-container fluid text-xs-center>
+        <v-container fluid>
             <v-layout row wrap justify-center>
-                <v-flex>
+                <v-flex text-center>
                     <h2>Select the required specifications of the environment</h2>
                 </v-flex>
             </v-layout>
@@ -25,28 +25,34 @@
                                     <v-flex class="text-xs-left pl-2"><span>Workload <strong>{{ ARCHETYPE_WORKLOAD }}</strong></span></v-flex>
                                     <v-flex>
                                         <v-tooltip top>
-                                            <div slot="activator">
-                                                <v-icon small>fas fa-microchip</v-icon>
-                                                {{ GET_SELECTED_ARCHETYPE_CPU }} Core
-                                            </div>
+                                            <template v-slot:activator="{ on }">
+                                                <div v-on="on">
+                                                    <v-icon small>fas fa-microchip</v-icon>
+                                                    {{ GET_SELECTED_ARCHETYPE_CPU }} Core
+                                                </div>
+                                            </template>
                                             <span>vCPU per VDI</span>
                                         </v-tooltip>
                                     </v-flex>
                                     <v-flex>
                                         <v-tooltip top>
-                                            <div slot="activator">
-                                                <v-icon small>fas fa-memory</v-icon>
-                                                {{ SOLUTION_RAM_CACHE === 'true' ? (GET_SELECTED_ARCHETYPE_MEMORY + GET_SELECTED_ARCHETYPE_RAMCACHE) : GET_SELECTED_ARCHETYPE_MEMORY | units('MB', 'GB', true) }}
-                                            </div>
+                                            <template v-slot:activator="{ on }">
+                                                <div v-on="on">
+                                                    <v-icon small>fas fa-memory</v-icon>
+                                                    {{ SOLUTION_RAM_CACHE === 'true' ? (GET_SELECTED_ARCHETYPE_MEMORY + GET_SELECTED_ARCHETYPE_RAMCACHE) : GET_SELECTED_ARCHETYPE_MEMORY | units('MB', 'GB', true) }}
+                                                </div>
+                                            </template>
                                             <span>RAM per VDI</span>
                                         </v-tooltip>
                                     </v-flex>
                                     <v-flex>
                                         <v-tooltip top>
-                                            <div slot="activator">
-                                                <v-icon small>fas fa-hdd</v-icon>
-                                                {{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'GB', true) }}
-                                            </div>
+                                            <template v-slot:activator="{ on }">
+                                                <div v-on="on">
+                                                    <v-icon small>fas fa-hdd</v-icon>
+                                                    {{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'GB', true) }}
+                                                </div>
+                                            </template>
                                             <span>Write Disk per VDI</span>
                                         </v-tooltip>
                                     </v-flex>
@@ -55,10 +61,12 @@
                                     <v-flex class="text-xs-left pl-2"><span>Average expected storage IOPS per user</span></v-flex>
                                     <v-flex>
                                         <v-tooltip top>
-                                            <div slot="activator">
-                                                <v-icon small>fas fa-tachometer-alt</v-icon>
-                                                <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
-                                            </div>
+                                            <template v-slot:activator="{ on }">
+                                                <div v-on="on">
+                                                    <v-icon small>fas fa-tachometer-alt</v-icon>
+                                                    <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
+                                                </div>
+                                            </template>
                                             <span>Steady-State IOPS per VDI</span>
                                         </v-tooltip>
                                     </v-flex>
@@ -76,28 +84,34 @@
                                     <v-flex class="text-xs-left pl-2"><span>Workload <strong>{{ ARCHETYPE_WORKLOAD }}</strong></span></v-flex>
                                     <v-flex>
                                         <v-tooltip top>
-                                            <div slot="activator">
-                                                <v-icon small>fas fa-microchip</v-icon>
-                                                {{ GET_SELECTED_ARCHETYPE_CPU }} Core
-                                            </div>
+                                            <template v-slot:activator="{ on }">
+                                                <div v-on="on">
+                                                    <v-icon small>fas fa-microchip</v-icon>
+                                                    {{ GET_SELECTED_ARCHETYPE_CPU }} Core
+                                                </div>
+                                            </template>
                                             <span>vCPU per SBC</span>
                                         </v-tooltip>
                                     </v-flex>
                                     <v-flex>
                                         <v-tooltip top>
-                                            <div slot="activator">
-                                                <v-icon small>fas fa-memory</v-icon>
-                                                {{ SOLUTION_RAM_CACHE === 'true' ? ((GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM)+ GET_SELECTED_ARCHETYPE_RAMCACHE) : (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM) | units('MB', 'GB', true) }}
-                                            </div>
+                                            <template v-slot:activator="{ on }">
+                                                <div v-on="on">
+                                                    <v-icon small>fas fa-memory</v-icon>
+                                                    {{ SOLUTION_RAM_CACHE === 'true' ? ((GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM)+ GET_SELECTED_ARCHETYPE_RAMCACHE) : (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM) | units('MB', 'GB', true) }}
+                                                </div>
+                                            </template>
                                             <span>RAM per SBC</span>
                                         </v-tooltip>
                                     </v-flex>
                                     <v-flex>
                                         <v-tooltip top>
-                                            <div slot="activator">
-                                                <v-icon small>fas fa-hdd</v-icon>
-                                                {{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'MB', true) }}
-                                            </div>
+                                            <template v-slot:activator="{ on }">
+                                                <div v-on="on">
+                                                    <v-icon small>fas fa-hdd</v-icon>
+                                                    {{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'MB', true) }}
+                                                </div>
+                                            </template>
                                             <span>Write Disk per SBC</span>
                                         </v-tooltip>
                                     </v-flex>
@@ -105,10 +119,12 @@
                                 <v-layout row wrap justify-space-between>
                                     <v-flex class="text-xs-left pl-2"><span>Average expected storage IOPS per user</span></v-flex>
                                     <v-tooltip top>
-                                        <div slot="activator">
-                                            <v-icon small>fas fa-tachometer-alt</v-icon>
-                                            <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
-                                        </div>
+                                        <template v-slot:activator="{ on }">
+                                            <div v-on="on">
+                                                <v-icon small>fas fa-tachometer-alt</v-icon>
+                                                <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
+                                            </div>
+                                        </template>
                                         <span>Steady-State IOPS per user</span>
                                     </v-tooltip>
                                 </v-layout>
@@ -127,7 +143,9 @@
                                             <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
                                                 <div slot="label">Define the VDI type
                                                     <v-tooltip top max-width="800px">
-                                                        <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                        <template v-slot:activator="{ on }">
+                                                            <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                        </template>
                                                         <span><strong>Pooled Desktop</strong> – The pooled desktop model provides each user with a random, temporary desktop operating system. This model is good for simplicity and standardization.<br>
                                                         <strong>Personal Desktop</strong> – The personal desktop model provides each user with a statically assigned, customizable, persistent desktop operating system. This model is good for performance and personalization</span>
                                                     </v-tooltip>
@@ -144,7 +162,9 @@
                                             <v-radio-group v-model="ARCHETYPE_ASSIGNMENT">
                                                 <div slot="label">Define the SBC type
                                                     <v-tooltip top max-width="800px">
-                                                        <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                        <template v-slot:activator="{ on }">
+                                                            <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                        </template>
                                                         <span><strong>Hosted Apps</strong> – The hosted apps model delivers only the application interface to the user. This approach provides a seamless way for organizations to deliver a centrally managed and hosted application into the user’s local PC. The Hosted Apps model is often utilized when organizations must simplify management of a few line-of-business applications.<br>
                                                         <strong>Shared Desktop</strong> – With the shared desktop model, multiple user desktops are hosted from a single, server-based operating system. The shared desktop model provides a low-cost, high-density solution; however, applications must be compatible with a multi-user server based operating system. In addition, because multiple users share a single operating system instance, users are restricted from performing actions that negatively impact other users, for example installing applications, changing system settings and restarting the operating system.</span>
                                                     </v-tooltip>
@@ -164,7 +184,9 @@
                                             <v-radio-group v-model="SOLUTION_RAM_CACHE">
                                                 <div slot="label">Define the Write-Cache Model
                                                     <v-tooltip top max-width="800px">
-                                                        <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                        <template v-slot:activator="{ on }">
+                                                            <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                        </template>
                                                         <span>Provisioning Services and Machine Creation Services have the capability to utilize a portion of the virtual machine’s RAM as a buffer for the storage cache.<br>
                                                         The RAM cache is used to improve the performance of traditional storage by sharing the virtual machine’s non-paged pool memory.</span>
                                                     </v-tooltip>
@@ -183,7 +205,9 @@
                                         <v-radio-group v-model="ARCHETYPE_RESALLOCATION">
                                             <div slot="label">Define the virtual resources allocation
                                                 <v-tooltip top max-width="800px">
-                                                    <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                    </template>
                                                     <span>Virtual resources require proper allocation of the processor, memory and disk. These decisions have a direct impact on the amount of hardware required as well as the user experience.<br>
                                                     The key to successful resource allocation is to ensure that virtual desktops and applications offer similar levels of performance to physical desktops. Otherwise, productivity and overall user satisfaction will be affected. Allocating resources to the virtual machines above their requirements however is inefficient and expensive for the business.</span>
                                                 </v-tooltip>
@@ -222,7 +246,9 @@
                                             tick-size="5">
                                             <div slot="label">What type of user's workload ?
                                                 <v-tooltip top>
-                                                    <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                    </template>
                                                     <span>Types and number of applications accessed by the user impacts overall density and the appropriate VDI model<br>
                                                         <strong>Light</strong> – 1-2 office productivity apps or kiosk.<br>
                                                         <strong>Medium</strong> – 2-10 office productivity apps with light multimedia use.<br>
@@ -250,7 +276,9 @@
                                             thumb-label="always">
                                             <div slot="label">How many users per SBC server in average ?
                                                 <v-tooltip top>
-                                                    <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                    </template>
                                                     <span>Tooltip</span>
                                                 </v-tooltip>
                                             </div>
@@ -269,7 +297,9 @@
                                     <v-flex xs3>
                                         <div class="theme--light v-label text-xs-left mt-3 pt-1">Select your target Operating System
                                             <v-tooltip top>
-                                                <v-icon slot="activator" small color="primary">far fa-question-circle</v-icon>
+                                                <template v-slot:activator="{ on }">
+                                                    <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                </template>
                                                 <span>NOTE: Only Windows OS currently displayed</span>
                                             </v-tooltip>
                                         </div>

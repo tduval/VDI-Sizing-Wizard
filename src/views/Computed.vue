@@ -18,17 +18,17 @@
                             <v-card-title primary-title>
                                 <div>
                                     <h3 class="headline mb-0">{{ GET_SELECTED_SOLUTION_VENDOR.title }}</h3>
-                                    <div><span v-html="GET_SELECTED_SOLUTION_VENDOR.description"></span></div>
+                                    <div><span class="subtitle-1" v-html="GET_SELECTED_SOLUTION_VENDOR.description"></span></div>
                                 </div>
                             </v-card-title>
 
                             <v-card-actions>
-                                <v-btn flat color="#42b883" :href="GET_SELECTED_SOLUTION_VENDOR.website" target="_blank">Visit official website</v-btn>
+                                <v-btn text color="#42b883" :href="GET_SELECTED_SOLUTION_VENDOR.website" target="_blank">Visit official website</v-btn>
                             </v-card-actions>
                         </v-card>
                     </v-flex>
 
-                    <v-flex d-flex>
+                    <v-flex d-flex text-center>
                         <v-card>
                             <v-layout row wrap justify-space-between>
                                 <v-flex>

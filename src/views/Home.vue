@@ -39,7 +39,7 @@
                         <v-icon right>fas fa-angle-right</v-icon>
                     </v-btn>
 
-                    <v-btn flat @click="currentStep--">
+                    <v-btn text @click="currentStep--">
                         <v-icon left>fas fa-angle-left</v-icon>
                         Previous
                     </v-btn>
@@ -54,7 +54,7 @@
                         Finish
                     </v-btn>
 
-                    <v-btn flat @click="currentStep--">
+                    <v-btn text @click="currentStep--">
                         <v-icon left>fas fa-angle-left</v-icon>
                         Previous
                     </v-btn>
