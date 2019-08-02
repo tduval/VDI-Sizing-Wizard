@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-container fluid text-xs-center>
+        <v-container fluid>
             <v-layout row wrap justify-center>
-                <v-flex>
+                <v-flex text-center>
                     <h2>Select the type of virtual solution</h2>
                 </v-flex>
             </v-layout>

@@ -1,11 +1,11 @@
 <template>
     <v-app>
-        <v-toolbar app dark>
+        <v-app-bar app dark>
             <v-avatar tile>
                 <img src="logo.png" alt="VueJS Logo">
             </v-avatar>
             <v-toolbar-items>
-                <v-btn dark flat href="/" large>
+                <v-btn dark text href="/" large>
                     <span class="title font-weight-medium">VDI Sizing Wizard</span>
                 </v-btn>
             </v-toolbar-items>
@@ -13,18 +13,18 @@
 
             <v-toolbar-items>
                 <!-- <v-btn flat>Settings</v-btn> -->
-                <v-btn v-on:click="SET_DIALOG_SETTINGS(true)" flat>Settings</v-btn>
+                <v-btn v-on:click="SET_DIALOG_SETTINGS(true)" text>Settings</v-btn>
                 <SettingsDialog />
-                <v-btn flat>N/A</v-btn>
+                <v-btn text>N/A</v-btn>
             </v-toolbar-items>
 
             <v-btn icon href="https://github.com/tduval/VDI-Sizing-Wizard" target="_blank">
                 <v-icon>fab fa-github</v-icon>
             </v-btn>
-        </v-toolbar>
+        </v-app-bar>
 
         <v-content>
-            <v-container>
+            <v-container fluid>
                 <router-view></router-view>
             </v-container>
         </v-content>
