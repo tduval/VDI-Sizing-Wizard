@@ -12,7 +12,7 @@
                 <v-btn text>N/A</v-btn>
                 <v-divider inset vertical></v-divider>
                 <v-btn icon href="https://github.com/tduval/VDI-Sizing-Wizard" target="_blank">
-                    <v-icon>fab fa-github</v-icon>
+                    <v-icon>mdi-github-circle</v-icon>
                 </v-btn>
             </v-toolbar-items>
         </v-app-bar>
@@ -46,7 +46,7 @@
                 </v-list-item>
                 <v-list-item link href="https://github.com/tduval/VDI-Sizing-Wizard" target="_blank">
                     <v-list-item-icon>
-                        <v-icon>fab fa-github</v-icon>
+                        <v-icon>mdi-github-circle</v-icon>
                     </v-list-item-icon>
                     <v-list-item-content>
                         <v-list-item-title>Github</v-list-item-title>
