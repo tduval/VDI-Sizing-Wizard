@@ -6,10 +6,6 @@
             <v-spacer></v-spacer>
 
             <v-toolbar-items>
-                <!-- <v-btn v-on:click="SET_DIALOG_SETTINGS(true)" text>Settings</v-btn>
-                <SettingsDialog />
-                <v-divider inset vertical></v-divider> 
-                <v-btn text>N/A</v-btn> -->
                 <v-btn icon to="/">
                     <v-icon>home</v-icon>
                 </v-btn>
@@ -67,7 +63,6 @@
 </template>
 
 <script>
-import SettingsDialog from '@/components/SettingsDialog.vue'
 
 export default {
   name: 'app',
@@ -77,14 +72,10 @@ export default {
     }
   },
   components: {
-    SettingsDialog
   },
   computed: {
   },
   methods: {
-    SET_DIALOG_SETTINGS (val) {
-      this.$store.commit('SET_DIALOG_SETTINGS', val)
-    }
   }
 }
 </script>
