@@ -10,7 +10,7 @@
                 <SettingsDialog />
                 <v-divider inset vertical></v-divider> 
                 <v-btn text>N/A</v-btn> -->
-                <v-btn icon href="/" target="">
+                <v-btn icon to="/">
                     <v-icon>home</v-icon>
                 </v-btn>
                 <v-divider inset vertical></v-divider>
@@ -22,7 +22,7 @@
 
         <v-navigation-drawer v-model="drawer" app clipped>
             <v-list dense nav>
-                <v-list-item link href="/">
+                <v-list-item to="/">
                     <v-list-item-icon>
                         <v-icon>home</v-icon>
                     </v-list-item-icon>
@@ -30,7 +30,7 @@
                         <v-list-item-title>Home</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link href="/project">
+                <v-list-item to="/project">
                     <v-list-item-icon>
                         <v-icon>add</v-icon>
                     </v-list-item-icon>
@@ -39,7 +39,7 @@
                     </v-list-item-content>
                 </v-list-item>
                 <v-divider dark class="my-4"></v-divider>
-                <v-list-item link>
+                <v-list-item to="/settings">
                     <v-list-item-icon>
                         <v-icon>settings</v-icon>
                     </v-list-item-icon>
@@ -47,7 +47,7 @@
                         <v-list-item-title>Settings</v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link href="https://github.com/tduval/VDI-Sizing-Wizard" target="_blank">
+                <v-list-item href="https://github.com/tduval/VDI-Sizing-Wizard" target="_blank">
                     <v-list-item-icon>
                         <v-icon>mdi-github-circle</v-icon>
                     </v-list-item-icon>
