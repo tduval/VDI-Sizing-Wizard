@@ -11,6 +11,7 @@
           <span>This tool is made to kickstart a new VDI/SBC project by providing usefull sizing for all necessary component.</span>
           <br>
           <span>The sizer actually support both <strong>Citrix</strong> and <strong>VMware</strong> product and the calculation are based on industry best-practices provided by <a href="https://docs.citrix.com/en-us/xenapp-and-xendesktop/7-15-ltsr/downloads/handbook-715-ltsr.pdf" target="_blank">Citrix Handbook</a> and <a href="https://techzone.vmware.com/resource/workspace-one-and-horizon-reference-architecture" target="_blank">VMware Horizon Architecture Reference</a> guide.</span>
+          <div class="mt-5">Start using the wizard : <v-btn small rounded color="primary" to="/project"><v-icon left>add</v-icon>Create new project</v-btn></div>
         </v-col>
       </v-row>
 
