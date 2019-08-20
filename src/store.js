@@ -34,37 +34,37 @@ export default new Vuex.Store({
       name: 'Windows 10',
       type: 'Desktop',
       family: 'Windows',
-      icon: 'fab fa-windows',
+      icon: 'mdi-windows',
       tag: 'wd10'
     }, {
       name: 'Windows 7',
       type: 'Desktop',
       family: 'Windows',
-      icon: 'fab fa-windows',
+      icon: 'mdi-windows',
       tag: 'wd7'
     }, {
       name: 'Windows Server 2016',
       type: 'Server',
       family: 'Windows',
-      icon: 'fab fa-windows',
+      icon: 'mdi-windows',
       tag: 'ws16'
     }, {
       name: 'Windows Server 2012R2',
       type: 'Server',
       family: 'Windows',
-      icon: 'fab fa-windows',
+      icon: 'mdi-windows',
       tag: 'ws12'
     }, {
       name: 'Linux Desktop',
       type: 'Desktop',
       family: 'Linux',
-      icon: 'fab fa-linux',
+      icon: 'mdi-linux',
       tag: 'ld'
     }, {
       name: 'Linux Server',
       type: 'Server',
       family: 'Linux',
-      icon: 'fab fa-linux',
+      icon: 'mdi-linux',
       tag: 'ls'
     }],
 

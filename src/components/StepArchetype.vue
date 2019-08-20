@@ -16,8 +16,8 @@
                         </v-card-title>
                         <v-card-text v-if="GET_SELECTED_SOLUTION_TYPE == 'VDI'">
                             <div class="text-xs-left pb-3">
-                                <span class="subheading"> <v-icon small>fas fa-users</v-icon> <strong> {{ CONCURRENT_USERS }}</strong> Concurrent users</span><br>
-                                <span class="subheading"> <v-icon small>fas fa-desktop</v-icon> Machine <strong> {{ ARCHETYPE_ASSIGNMENT }}</strong> to users</span><br>
+                                <span class="subheading"> <v-icon small>mdi-account-multiple</v-icon> <strong> {{ CONCURRENT_USERS }}</strong> Concurrent users</span><br>
+                                <span class="subheading"> <v-icon small>mdi-desktop-mac</v-icon> Machine <strong> {{ ARCHETYPE_ASSIGNMENT }}</strong> to users</span><br>
                                 <span class="title"> <v-icon>{{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.icon }}</v-icon> <strong> {{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.name }}</strong></span><br>
                             </div>
                             <div class="grey darken-2">
@@ -27,7 +27,7 @@
                                         <v-tooltip top>
                                             <template v-slot:activator="{ on }">
                                                 <div v-on="on">
-                                                    <v-icon small>fas fa-microchip</v-icon>
+                                                    <v-icon small>mdi-chip</v-icon>
                                                     {{ GET_SELECTED_ARCHETYPE_CPU }} Core
                                                 </div>
                                             </template>
@@ -38,7 +38,7 @@
                                         <v-tooltip top>
                                             <template v-slot:activator="{ on }">
                                                 <div v-on="on">
-                                                    <v-icon small>fas fa-memory</v-icon>
+                                                    <v-icon small>mdi-memory</v-icon>
                                                     {{ SOLUTION_RAM_CACHE === 'true' ? (GET_SELECTED_ARCHETYPE_MEMORY + GET_SELECTED_ARCHETYPE_RAMCACHE) : GET_SELECTED_ARCHETYPE_MEMORY | units('MB', 'GB', true) }}
                                                 </div>
                                             </template>
@@ -49,7 +49,7 @@
                                         <v-tooltip top>
                                             <template v-slot:activator="{ on }">
                                                 <div v-on="on">
-                                                    <v-icon small>fas fa-hdd</v-icon>
+                                                    <v-icon small>mdi-harddisk</v-icon>
                                                     {{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'GB', true) }}
                                                 </div>
                                             </template>
@@ -63,7 +63,7 @@
                                         <v-tooltip top>
                                             <template v-slot:activator="{ on }">
                                                 <div v-on="on">
-                                                    <v-icon small>fas fa-tachometer-alt</v-icon>
+                                                    <v-icon small>mdi-gauge</v-icon>
                                                     <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
                                                 </div>
                                             </template>
@@ -75,8 +75,8 @@
                         </v-card-text>
                         <v-card-text v-else>
                             <div class="text-xs-left pb-3">
-                                <span class="subheading"> <v-icon small>fas fa-users</v-icon> <strong> {{ CONCURRENT_USERS }}</strong> Concurrent users</span><br>
-                                <span class="subheading"> <v-icon small>fas fa-cubes</v-icon>  Hosted <strong class="text-capitalize"> {{ ARCHETYPE_ASSIGNMENT }}</strong></span><br>
+                                <span class="subheading"> <v-icon small>mdi-account-multiple</v-icon> <strong> {{ CONCURRENT_USERS }}</strong> Concurrent users</span><br>
+                                <span class="subheading"> <v-icon small>mdi-server</v-icon>  Hosted <strong class="text-capitalize"> {{ ARCHETYPE_ASSIGNMENT }}</strong></span><br>
                                 <span class="title"> <v-icon>{{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.icon }}</v-icon> <strong> {{ GET_SELECTED_ARCHETYPE_OS_DEFINITION.name }}</strong></span><br>
                             </div>
                             <div class="grey darken-2">
@@ -86,7 +86,7 @@
                                         <v-tooltip top>
                                             <template v-slot:activator="{ on }">
                                                 <div v-on="on">
-                                                    <v-icon small>fas fa-microchip</v-icon>
+                                                    <v-icon small>mdi-chip</v-icon>
                                                     {{ GET_SELECTED_ARCHETYPE_CPU }} Core
                                                 </div>
                                             </template>
@@ -97,7 +97,7 @@
                                         <v-tooltip top>
                                             <template v-slot:activator="{ on }">
                                                 <div v-on="on">
-                                                    <v-icon small>fas fa-memory</v-icon>
+                                                    <v-icon small>mdi-memory</v-icon>
                                                     {{ SOLUTION_RAM_CACHE === 'true' ? ((GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM)+ GET_SELECTED_ARCHETYPE_RAMCACHE) : (GET_SELECTED_ARCHETYPE_MEMORY * CONCURRENT_USERS_PER_VM) | units('MB', 'GB', true) }}
                                                 </div>
                                             </template>
@@ -108,7 +108,7 @@
                                         <v-tooltip top>
                                             <template v-slot:activator="{ on }">
                                                 <div v-on="on">
-                                                    <v-icon small>fas fa-hdd</v-icon>
+                                                    <v-icon small>mdi-harddisk</v-icon>
                                                     {{ GET_SELECTED_ARCHETYPE_DISK | units('GB', 'MB', true) }}
                                                 </div>
                                             </template>
@@ -121,7 +121,7 @@
                                     <v-tooltip top>
                                         <template v-slot:activator="{ on }">
                                             <div v-on="on">
-                                                <v-icon small>fas fa-tachometer-alt</v-icon>
+                                                <v-icon small>mdi-gauge</v-icon>
                                                 <strong> {{ GET_SELECTED_AVERAGE_WORKLOAD_IOPS }} IOPS</strong>
                                             </div>
                                         </template>
@@ -144,7 +144,7 @@
                                                 <div slot="label">Define the VDI type
                                                     <v-tooltip top max-width="800px">
                                                         <template v-slot:activator="{ on }">
-                                                            <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                            <v-icon v-on="on" small color="primary">mdi-help-circle</v-icon>
                                                         </template>
                                                         <span><strong>Pooled Desktop</strong> – The pooled desktop model provides each user with a random, temporary desktop operating system. This model is good for simplicity and standardization.<br>
                                                         <strong>Personal Desktop</strong> – The personal desktop model provides each user with a statically assigned, customizable, persistent desktop operating system. This model is good for performance and personalization</span>
@@ -163,7 +163,7 @@
                                                 <div slot="label">Define the SBC type
                                                     <v-tooltip top max-width="800px">
                                                         <template v-slot:activator="{ on }">
-                                                            <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                            <v-icon v-on="on" small color="primary">mdi-help-circle</v-icon>
                                                         </template>
                                                         <span><strong>Hosted Apps</strong> – The hosted apps model delivers only the application interface to the user. This approach provides a seamless way for organizations to deliver a centrally managed and hosted application into the user’s local PC. The Hosted Apps model is often utilized when organizations must simplify management of a few line-of-business applications.<br>
                                                         <strong>Shared Desktop</strong> – With the shared desktop model, multiple user desktops are hosted from a single, server-based operating system. The shared desktop model provides a low-cost, high-density solution; however, applications must be compatible with a multi-user server based operating system. In addition, because multiple users share a single operating system instance, users are restricted from performing actions that negatively impact other users, for example installing applications, changing system settings and restarting the operating system.</span>
@@ -185,7 +185,7 @@
                                                 <div slot="label">Define the Write-Cache Model
                                                     <v-tooltip top max-width="800px">
                                                         <template v-slot:activator="{ on }">
-                                                            <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                            <v-icon v-on="on" small color="primary">mdi-help-circle</v-icon>
                                                         </template>
                                                         <span>Provisioning Services and Machine Creation Services have the capability to utilize a portion of the virtual machine’s RAM as a buffer for the storage cache.<br>
                                                         The RAM cache is used to improve the performance of traditional storage by sharing the virtual machine’s non-paged pool memory.</span>
@@ -206,7 +206,7 @@
                                             <div slot="label">Define the virtual resources allocation
                                                 <v-tooltip top max-width="800px">
                                                     <template v-slot:activator="{ on }">
-                                                        <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                        <v-icon v-on="on" small color="primary">mdi-help-circle</v-icon>
                                                     </template>
                                                     <span>Virtual resources require proper allocation of the processor, memory and disk. These decisions have a direct impact on the amount of hardware required as well as the user experience.<br>
                                                     The key to successful resource allocation is to ensure that virtual desktops and applications offer similar levels of performance to physical desktops. Otherwise, productivity and overall user satisfaction will be affected. Allocating resources to the virtual machines above their requirements however is inefficient and expensive for the business.</span>
@@ -247,7 +247,7 @@
                                             <div slot="label">What type of user's workload ?
                                                 <v-tooltip top>
                                                     <template v-slot:activator="{ on }">
-                                                        <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                        <v-icon v-on="on" small color="primary">mdi-help-circle</v-icon>
                                                     </template>
                                                     <span>Types and number of applications accessed by the user impacts overall density and the appropriate VDI model<br>
                                                         <strong>Light</strong> – 1-2 office productivity apps or kiosk.<br>
@@ -277,7 +277,7 @@
                                             <div slot="label">How many users per SBC server in average ?
                                                 <v-tooltip top>
                                                     <template v-slot:activator="{ on }">
-                                                        <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                        <v-icon v-on="on" small color="primary">mdi-help-circle</v-icon>
                                                     </template>
                                                     <span>Tooltip</span>
                                                 </v-tooltip>
@@ -298,7 +298,7 @@
                                         <div class="theme--light v-label text-xs-left mt-3 pt-1">Select your target Operating System
                                             <v-tooltip top>
                                                 <template v-slot:activator="{ on }">
-                                                    <v-icon v-on="on" small color="primary">far fa-question-circle</v-icon>
+                                                    <v-icon v-on="on" small color="primary">mdi-help-circle</v-icon>
                                                 </template>
                                                 <span>NOTE: Only Windows OS currently displayed</span>
                                             </v-tooltip>
