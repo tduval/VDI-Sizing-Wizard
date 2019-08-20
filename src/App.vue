@@ -6,10 +6,13 @@
             <v-spacer></v-spacer>
 
             <v-toolbar-items>
-                <v-btn v-on:click="SET_DIALOG_SETTINGS(true)" text>Settings</v-btn>
+                <!-- <v-btn v-on:click="SET_DIALOG_SETTINGS(true)" text>Settings</v-btn>
                 <SettingsDialog />
-                <v-divider inset vertical></v-divider>
-                <v-btn text>N/A</v-btn>
+                <v-divider inset vertical></v-divider> 
+                <v-btn text>N/A</v-btn> -->
+                <v-btn icon href="/" target="">
+                    <v-icon>home</v-icon>
+                </v-btn>
                 <v-divider inset vertical></v-divider>
                 <v-btn icon href="https://github.com/tduval/VDI-Sizing-Wizard" target="_blank">
                     <v-icon>mdi-github-circle</v-icon>
