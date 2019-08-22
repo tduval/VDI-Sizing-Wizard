@@ -30,6 +30,24 @@ export default new Vuex.Store({
       tag: 'SBC'
     }],
 
+    solutionProvisionningCollection: [{
+      title: 'Machine Creation Services',
+      from: 'CITRIX',
+      tag: 'MCS'
+    }, {
+      title: 'Provisionning Services',
+      from: 'CITRIX',
+      tag: 'PVS'
+    }, {
+      title: 'Instant Clones',
+      from: 'VMWARE',
+      tag: 'IC'
+    }, {
+      title: 'Linked Clones',
+      from: 'VMWARE',
+      tag: 'LC'
+    }],
+
     archetypeOSCollection: [{
       name: 'Windows 10',
       type: 'Desktop',
@@ -310,6 +328,7 @@ export default new Vuex.Store({
 
     _selectedSolutionVendor: 'CITRIX',
     _selectedSolutionType: 'VDI',
+    _selectedSolutionProvisionning: 'MCS',
     _selectedArchetypeWorkload: 'Light',
     _selectedArchetypeResourceAllocation: 'experience',
     _selectedArchetypeOS: 'wd10',
@@ -346,6 +365,9 @@ export default new Vuex.Store({
     getSolutionType: (state) => () => {
       return state.solutionTypeCollection.find(def => def.tag === state._selectedSolutionType)
     },
+    getSolutionProvisionningbySelectedSolutionVendor: (state) => () => {
+      return state.solutionProvisionningCollection.filter(def => def.from === state._selectedSolutionVendor)
+    },
     getOvercommitRatioCPU: (state) => () => {
       return state.OvercommitRatioCPU.find(def => def.name === state._selectedSolutionType).value.find(def => def.name === state._selectedArchetypeResourceAllocation).value
     },
@@ -366,6 +388,7 @@ export default new Vuex.Store({
     SET_SOLUTION_VENDOR (state, payload) {
       if (payload === 'VMWARE') {
         state._selectedSolutionRAMCache = 'false'
+        state._selectedSolutionProvisionning = 'IC'
       }
       // eslint-disable-next-line
       state._selectedSolutionVendor = payload
@@ -382,6 +405,10 @@ export default new Vuex.Store({
       }
       // eslint-disable-next-line
       state._selectedSolutionType = payload
+    },
+    SET_SOLUTION_PROVISIONNING (state, payload) {
+      // eslint-disable-next-line
+      state._selectedSolutionProvisionning = payload
     },
     SET_ARCHETYPE_WORKLOAD (state, payload) {
       // eslint-disable-next-line
