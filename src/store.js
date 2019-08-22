@@ -326,6 +326,91 @@ export default new Vuex.Store({
       }]
     }],
 
+    infrastructureComponentDefintion: [{
+      vendor: 'CITRIX',
+      component: [{
+        name: 'Delivery Controller',
+        tag: 'DDC',
+        role: 'broker',
+        sizing: {
+          vCPU: 4,
+          memory: 4,
+          disk: 60,
+          scalability: '5000',
+          scalabilityUnit: 'maxUsers'
+        }
+      }, {
+        name: 'Storefront',
+        tag: 'STF',
+        role: 'web',
+        sizing: {
+          vCPU: 4,
+          memory: 4,
+          disk: 60,
+          scalability: '5000',
+          scalabilityUnit: 'maxUsers'
+        }
+      }, {
+        name: 'Netscaler Gateway',
+        tag: 'NSG',
+        role: 'gateway',
+        sizing: {
+          vCPU: 2,
+          memory: 4,
+          disk: 20,
+          scalability: '5000',
+          scalabilityUnit: 'maxUsers'
+        }
+      }, {
+        name: 'Provisionning Services',
+        tag: 'PVS',
+        role: 'provision',
+        sizing: {
+          vCPU: 4,
+          memory: 8,
+          disk: 60,
+          scalability: '160',
+          scalabilityUnit: 'maxUsers'
+        }
+      }]
+    }, {
+      vendor: 'VMWARE',
+      component: [{
+        name: 'Connection Server',
+        tag: 'CON',
+        role: 'broker',
+        sizing: {
+          vCPU: 4,
+          memory: 4,
+          disk: 60,
+          scalability: '2000',
+          scalabilityUnit: 'maxUsers'
+        }
+      }, {
+        name: 'Unified Access Gateway',
+        tag: 'UAG',
+        role: 'gateway',
+        sizing: {
+          vCPU: 2,
+          memory: 4,
+          disk: 20,
+          scalability: '5000',
+          scalabilityUnit: 'maxUsers'
+        }
+      }, {
+        name: 'Composer Server',
+        tag: 'CPS',
+        role: 'provision',
+        sizing: {
+          vCPU: 4,
+          memory: 8,
+          disk: 60,
+          scalability: '160',
+          scalabilityUnit: 'maxUsers'
+        }
+      }]
+    }],
+
     _selectedSolutionVendor: 'CITRIX',
     _selectedSolutionType: 'VDI',
     _selectedSolutionProvisionning: 'MCS',
